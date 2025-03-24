@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repository Browser</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+    <style>
+        :root {
+            --primary-color: #5D5CDE;
+            --primary-hover: #4b4ab2;
+            --background-light: #FFFFFF;
+            --background-dark: #181818;
+            --text-light: #333333;
+            --text-dark: #E0E0E0;
+            --border-light: #E5E7EB;
+            --border-dark: #374151;
+        }
+
+        .dark {
+            color-scheme: dark;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .hljs {
+                background: #1f2937 !important;
+            }
+        }
+
+        .dark .hljs {
+            background: #1f2937 !important;
+        }
+
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 20px;
+        }
+
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(75, 85, 99, 0.5);
+        }
+
+        /* Spinner */
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 3px solid var(--primary-color);
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .dark .spinner {
+            border-color: rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary-color);
+        }
+
+        /* File icons */
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            height: 4px;
+            background-color: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .dark .progress-bar {
+            background-color: #374151;
+        }
+
+        /* Content area */
+        #content-viewer {
+            min-height: 300px;
+        }
+
+        .breadcrumb-item {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--primary-color);
+        }
+
+        /* Markdown styling */
+        .markdown-body img {
+            max-width: 100%;
+        }
+
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .file-entry {
+            transition: background-color 0.2s;
+        }
+
+        .file-entry:hover {
+            background-color: rgba(93, 92, 222, 0.1);
+        }
+
+        .dark .file-entry:hover {
+            background-color: rgba(93, 92, 222, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen transition-colors">
+    <div class="container mx-auto px-4 py-6 max-w-6xl">
+        <h1 class="text-2xl font-bold mb-6 text-center">GitHub Repository Browser</h1>
+        
+        <!-- URL Input Form -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">
+            <form id="repo-form" class="flex flex-col sm:flex-row gap-2">
+                <div class="flex-grow">
+                    <input 
+                        type="text" 
+                        id="repo-url" 
+                        placeholder="Enter GitHub URL (e.g., github.com/username/repo or github.com/username/repo/tree/branch/folder)" 
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white text-base"
+                        required
+                    >
+                </div>
+                <button 
+                    type="submit" 
+                    class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
+                    style="background-color: var(--primary-color); hover:background-color: var(--primary-hover);"
+                >
+                    <i class="fas fa-search mr-1"></i> Browse
+                </button>
+            </form>
+        </div>
+
+        <!-- Browse Container -->
+        <div id="browse-container" class="hidden bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+            <!-- Breadcrumb Navigation -->
+            <div class="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center overflow-x-auto custom-scrollbar">
+                <div id="breadcrumb" class="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-300">
+                    <!-- Breadcrumb items will be added here -->
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="flex justify-between items-center p-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                <div class="text-sm font-medium">
+                    <span id="repo-info"></span>
+                </div>
+                <div class="flex space-x-2">
+                    <button id="download-btn" class="hidden text-xs sm:text-sm px-2 sm:px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500" style="background-color: var(--primary-color);">
+                        <i class="fas fa-download mr-1"></i> <span class="hidden sm:inline">Download</span>
+                    </button>
+                    <button id="compress-btn" class="hidden text-xs sm:text-sm px-2 sm:px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500" style="background-color: var(--primary-color);">
+                        <i class="fas fa-file-archive mr-1"></i> <span class="hidden sm:inline">Compress & Download</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="flex flex-col md:flex-row">
+                <!-- File Browser -->
+                <div class="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <div id="file-explorer" class="custom-scrollbar h-64 md:h-[calc(100vh-20rem)] overflow-y-auto">
+                        <!-- Loading spinner -->
+                        <div id="loading-files" class="p-6 flex flex-col items-center justify-center">
+                            <div class="spinner mb-3"></div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Loading repository contents...</p>
+                        </div>
+                        <div id="file-list" class="hidden">
+                            <!-- File list will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Viewer -->
+                <div class="w-full md:w-2/3">
+                    <div id="content-container" class="relative">
+                        <!-- Content loading indicator -->
+                        <div id="loading-content" class="hidden absolute inset-0 bg-white dark:bg-gray-800 bg-opacity-80 dark:bg-opacity-80 flex items-center justify-center">
+                            <div class="spinner"></div>
+                        </div>
+                        
+                        <!-- Content viewer -->
+                        <div id="content-viewer" class="p-4 h-96 md:h-[calc(100vh-20rem)] overflow-auto custom-scrollbar">
+                            <div class="flex items-center justify-center h-full text-gray-400">
+                                <div class="text-center">
+                                    <i class="fas fa-folder-open text-4xl mb-3"></i>
+                                    <p>Select a file to view its contents</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Progress Modal -->
+        <div id="download-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
+                <h3 class="text-lg font-medium mb-4">Downloading Repository</h3>
+                <div class="mb-4">
+                    <p id="download-status" class="text-sm mb-2">Preparing files...</p>
+                    <div class="progress-bar">
+                        <div id="download-progress" class="progress-bar-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <p id="download-message" class="text-sm text-gray-500 dark:text-gray-400 mb-4">This may take a moment depending on the repository size.</p>
+                <div class="flex justify-end">
+                    <button id="cancel-download" class="px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600 transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Modal -->
+        <div id="error-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-red-600 dark:text-red-400">Error</h3>
+                    <button id="close-error" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <p id="error-message" class="text-sm text-gray-700 dark:text-gray-300"></p>
+                </div>
+                <div id="error-details" class="mb-4 text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 p-3 rounded overflow-auto max-h-40 hidden"></div>
+                <div class="flex justify-end">
+                    <button id="error-ok" class="px-4 py-2 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors" style="background-color: var(--primary-color);">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode detection
+        function setupDarkMode() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+            
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+        }
+
+        // Main application logic
+        document.addEventListener('DOMContentLoaded', function() {
+            setupDarkMode();
+            
+            // Elements
+            const repoForm = document.getElementById('repo-form');
+            const repoUrlInput = document.getElementById('repo-url');
+            const browseContainer = document.getElementById('browse-container');
+            const fileExplorer = document.getElementById('file-explorer');
+            const fileList = document.getElementById('file-list');
+            const contentViewer = document.getElementById('content-viewer');
+            const breadcrumb = document.getElementById('breadcrumb');
+            const repoInfo = document.getElementById('repo-info');
+            const downloadBtn = document.getElementById('download-btn');
+            const compressBtn = document.getElementById('compress-btn');
+            const loadingFiles = document.getElementById('loading-files');
+            const loadingContent = document.getElementById('loading-content');
+            const downloadModal = document.getElementById('download-modal');
+            const downloadStatus = document.getElementById('download-status');
+            const downloadProgress = document.getElementById('download-progress');
+            const cancelDownload = document.getElementById('cancel-download');
+            const errorModal = document.getElementById('error-modal');
+            const errorMessage = document.getElementById('error-message');
+            const errorDetails = document.getElementById('error-details');
+            const closeError = document.getElementById('close-error');
+            const errorOk = document.getElementById('error-ok');
+
+            // State variables
+            let currentRepo = null;
+            let currentBranch = null;
+            let currentPath = [];
+            let currentFiles = [];
+            let abortController = null;
+            
+            // Initialize syntax highlighting
+            hljs.configure({
+                languages: ['javascript', 'python', 'java', 'html', 'css', 'bash', 'json', 'typescript', 'go', 'rust', 'c', 'cpp']
+            });
+            
+            // Initialize marked
+            marked.setOptions({
+                highlight: function(code, lang) {
+                    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                    return hljs.highlight(code, { language }).value;
+                },
+                langPrefix: 'hljs language-'
+            });
+
+            // Handle form submission
+            repoForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const url = repoUrlInput.value.trim();
+                if (url) {
+                    parseGitHubUrl(url);
+                }
+            });
+
+            // Close error modal handlers
+            closeError.addEventListener('click', hideErrorModal);
+            errorOk.addEventListener('click', hideErrorModal);
+            
+            // Cancel download handler
+            cancelDownload.addEventListener('click', function() {
+                if (abortController) {
+                    abortController.abort();
+                    abortController = null;
+                }
+                downloadModal.classList.add('hidden');
+            });
+
+            // Parse GitHub URL
+            function parseGitHubUrl(url) {
+                try {
+                    // Remove protocol if present
+                    url = url.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '');
+                    
+                    const parts = url.split('/');
+                    if (parts.length < 2) {
+                        throw new Error('Invalid GitHub URL. Please provide a valid repository URL.');
+                    }
+                    
+                    const owner = parts[0];
+                    const repo = parts[1];
+                    
+                    // Reset state
+                    currentRepo = { owner, name: repo };
+                    currentPath = [];
+                    
+                    // Determine if URL points to a specific branch, folder or file
+                    if (parts.length > 2) {
+                        if (parts[2] === 'tree' || parts[2] === 'blob') {
+                            // Format: username/repo/tree|blob/branch/[path/to/folder|file]
+                            if (parts.length < 4) {
+                                throw new Error('Invalid GitHub URL. Branch name is missing.');
+                            }
+                            
+                            currentBranch = parts[3];
+                            
+                            // Get path if present
+                            if (parts.length > 4) {
+                                currentPath = parts.slice(4);
+                            }
+                        } else {
+                            // Assume default branch and treat the rest as path
+                            currentBranch = null; // Will fetch default branch
+                            currentPath = parts.slice(2);
+                        }
+                    } else {
+                        // Just username/repo, use default branch
+                        currentBranch = null;
+                    }
+                    
+                    // Start fetching repository content
+                    browseContainer.classList.remove('hidden');
+                    fetchRepositoryContent();
+                    
+                } catch (error) {
+                    showError('URL Parsing Error', error.message);
+                }
+            }
+
+            // Fetch repository content
+            async function fetchRepositoryContent() {
+                showLoadingFiles();
+                hideContentViewer();
+                updateBreadcrumb();
+                
+                try {
+                    // Fetch repository info to get default branch if needed
+                    if (!currentBranch) {
+                        const repoInfo = await fetchRepoInfo();
+                        currentBranch = repoInfo.default_branch;
+                    }
+                    
+                    // Update repository info display
+                    updateRepoInfo();
+                    
+                    // Fetch contents of current path
+                    const contents = await fetchContents();
+                    
+                    // Display contents in file explorer
+                    displayContents(contents);
+                    
+                } catch (error) {
+                    console.error('Error fetching repository content:', error);
+                    showError('Repository Error', 'Failed to fetch repository content. ' + error.message);
+                }
+            }
+
+            // Fetch repository info
+            async function fetchRepoInfo() {
+                const url = `https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}`;
+                
+                try {
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            throw new Error('Repository not found. Please check the URL and try again.');
+                        } else if (response.status === 403) {
+                            throw new Error('API rate limit exceeded. Please try again later.');
+                        } else {
+                            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                        }
+                    }
+                    
+                    return await response.json();
+                    
+                } catch (error) {
+                    console.error('Error fetching repo info:', error);
+                    throw error;
+                }
+            }
+
+            // Fetch contents of current path
+            async function fetchContents() {
+                const path = currentPath.join('/');
+                const url = `https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}/contents/${path}?ref=${currentBranch}`;
+                
+                try {
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            throw new Error('Path not found. The folder or file may not exist in this branch.');
+                        } else if (response.status === 403) {
+                            throw new Error('API rate limit exceeded. Please try again later.');
+                        } else {
+                            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                        }
+                    }
+                    
+                    return await response.json();
+                    
+                } catch (error) {
+                    console.error('Error fetching contents:', error);
+                    throw error;
+                }
+            }
+
+            // Update repository info display
+            function updateRepoInfo() {
+                repoInfo.textContent = `${currentRepo.owner}/${currentRepo.name} (${currentBranch})`;
+            }
+
+            // Display contents in file explorer
+            function displayContents(contents) {
+                currentFiles = Array.isArray(contents) ? contents : [contents];
+                
+                // If it's a single file, display its content
+                if (!Array.isArray(contents)) {
+                    viewFile(contents);
+                    hideLoadingFiles();
+                    return;
+                }
+                
+                // Sort: directories first, then files, alphabetically
+                currentFiles.sort((a, b) => {
+                    if (a.type !== b.type) {
+                        return a.type === 'dir' ? -1 : 1;
+                    }
+                    return a.name.localeCompare(b.name);
+                });
+                
+                // Clear current list and generate new items
+                fileList.innerHTML = '';
+                
+                // Create list items for each file/directory
+                currentFiles.forEach(item => {
+                    const listItem = document.createElement('div');
+                    listItem.className = 'file-entry p-2 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-750 cursor-pointer flex items-center';
+                    
+                    // Icon based on file type
+                    const icon = getFileIcon(item);
+                    
+                    listItem.innerHTML = `
+                        <div class="file-icon mr-3">${icon}</div>
+                        <div class="flex-grow truncate">${item.name}</div>
+                    `;
+                    
+                    // Add click handler
+                    listItem.addEventListener('click', () => {
+                        if (item.type === 'dir') {
+                            navigateToFolder(item.name);
+                        } else {
+                            viewFile(item);
+                        }
+                    });
+                    
+                    fileList.appendChild(listItem);
+                });
+                
+                // Show file list and hide loading
+                fileList.classList.remove('hidden');
+                hideLoadingFiles();
+                
+                // Show/hide download and compress buttons
+                updateActionButtons();
+            }
+
+            // Get appropriate icon for a file or directory
+            function getFileIcon(item) {
+                if (item.type === 'dir') {
+                    return '<i class="fas fa-folder text-yellow-500"></i>';
+                }
+                
+                // Determine icon based on file extension
+                const extension = item.name.split('.').pop().toLowerCase();
+                
+                const iconMap = {
+                    'js': '<i class="fab fa-js-square text-yellow-400"></i>',
+                    'ts': '<i class="fab fa-js-square text-blue-500"></i>',
+                    'html': '<i class="fab fa-html5 text-orange-500"></i>',
+                    'css': '<i class="fab fa-css3-alt text-blue-500"></i>',
+                    'scss': '<i class="fab fa-sass text-pink-500"></i>',
+                    'md': '<i class="fas fa-file-alt text-gray-500"></i>',
+                    'json': '<i class="fas fa-brackets-curly text-gray-500"></i>',
+                    'py': '<i class="fab fa-python text-blue-600"></i>',
+                    'java': '<i class="fab fa-java text-red-600"></i>',
+                    'rb': '<i class="fas fa-gem text-red-500"></i>',
+                    'php': '<i class="fab fa-php text-purple-500"></i>',
+                    'c': '<i class="fas fa-file-code text-blue-400"></i>',
+                    'cpp': '<i class="fas fa-file-code text-blue-500"></i>',
+                    'h': '<i class="fas fa-file-code text-blue-300"></i>',
+                    'go': '<i class="fas fa-file-code text-cyan-500"></i>',
+                    'rs': '<i class="fas fa-file-code text-orange-600"></i>',
+                    'sh': '<i class="fas fa-terminal text-green-500"></i>',
+                    'bat': '<i class="fas fa-terminal text-gray-500"></i>',
+                    'ps1': '<i class="fas fa-terminal text-blue-500"></i>',
+                    'jpg': '<i class="fas fa-file-image text-purple-400"></i>',
+                    'jpeg': '<i class="fas fa-file-image text-purple-400"></i>',
+                    'png': '<i class="fas fa-file-image text-green-400"></i>',
+                    'gif': '<i class="fas fa-file-image text-blue-400"></i>',
+                    'svg': '<i class="fas fa-file-image text-orange-400"></i>',
+                    'pdf': '<i class="fas fa-file-pdf text-red-500"></i>',
+                    'zip': '<i class="fas fa-file-archive text-yellow-600"></i>',
+                    'tar': '<i class="fas fa-file-archive text-brown-500"></i>',
+                    'gz': '<i class="fas fa-file-archive text-red-400"></i>',
+                    'mp3': '<i class="fas fa-file-audio text-blue-400"></i>',
+                    'wav': '<i class="fas fa-file-audio text-purple-400"></i>',
+                    'mp4': '<i class="fas fa-file-video text-red-400"></i>',
+                    'mov': '<i class="fas fa-file-video text-blue-500"></i>',
+                    'txt': '<i class="fas fa-file-alt text-gray-500"></i>',
+                    'log': '<i class="fas fa-file-alt text-gray-400"></i>'
+                };
+                
+                return iconMap[extension] || '<i class="fas fa-file text-gray-400"></i>';
+            }
+
+            // Navigate to a folder
+            function navigateToFolder(folderName) {
+                currentPath.push(folderName);
+                fetchRepositoryContent();
+            }
+
+            // Navigate using breadcrumb
+            function navigateBreadcrumb(index) {
+                if (index < 0) {
+                    // Repository root
+                    currentPath = [];
+                } else {
+                    // Truncate path at the clicked index
+                    currentPath = currentPath.slice(0, index + 1);
+                }
+                
+                fetchRepositoryContent();
+            }
+
+            // Update breadcrumb navigation
+            function updateBreadcrumb() {
+                breadcrumb.innerHTML = '';
+                
+                // Add repository root
+                const rootItem = document.createElement('span');
+                rootItem.className = 'breadcrumb-item flex items-center';
+                rootItem.innerHTML = '<i class="fas fa-home mr-1"></i> Root';
+                rootItem.addEventListener('click', () => navigateBreadcrumb(-1));
+                breadcrumb.appendChild(rootItem);
+                
+                // Add separator after root
+                if (currentPath.length > 0) {
+                    const separator = document.createElement('span');
+                    separator.className = 'mx-1 text-gray-400';
+                    separator.textContent = '/';
+                    breadcrumb.appendChild(separator);
+                }
+                
+                // Add path segments
+                currentPath.forEach((segment, index) => {
+                    const item = document.createElement('span');
+                    item.className = 'breadcrumb-item';
+                    item.textContent = segment;
+                    item.addEventListener('click', () => navigateBreadcrumb(index));
+                    breadcrumb.appendChild(item);
+                    
+                    // Add separator if not the last item
+                    if (index < currentPath.length - 1) {
+                        const separator = document.createElement('span');
+                        separator.className = 'mx-1 text-gray-400';
+                        separator.textContent = '/';
+                        breadcrumb.appendChild(separator);
+                    }
+                });
+            }
+
+            // View file content
+            async function viewFile(file) {
+                showLoadingContent();
+                
+                try {
+                    let content;
+                    let contentType;
+                    
+                    // If file is too large (> 1MB), add a warning
+                    if (file.size > 1000000) {
+                        contentViewer.innerHTML = `
+                            <div class="p-4 bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-400 text-yellow-800 dark:text-yellow-200 mb-4">
+                                <p class="font-medium">Warning: Large File</p>
+                                <p class="text-sm">This file is ${(file.size / 1000000).toFixed(2)} MB in size. Displaying it may be slow.</p>
+                            </div>
+                        `;
+                    } else {
+                        contentViewer.innerHTML = '';
+                    }
+                    
+                    // For README files, fetch and render markdown
+                    if (file.name.toLowerCase().match(/^readme\.(md|markdown)$/)) {
+                        content = await fetchFileContent(file.download_url);
+                        contentViewer.innerHTML += `<div class="markdown-body">${marked.parse(content)}</div>`;
+                        hideLoadingContent();
+                        return;
+                    }
+                    
+                    const extension = file.name.split('.').pop().toLowerCase();
+                    
+                    // Handle different file types
+                    if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp'].includes(extension)) {
+                        // Image files
+                        contentViewer.innerHTML += `
+                            <div class="flex flex-col items-center justify-center">
+                                <img src="${file.download_url}" alt="${file.name}" class="max-w-full max-h-[80vh] object-contain" />
+                                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">To save this image, right-click on it and select "Save image as..."</p>
+                            </div>
+                        `;
+                    } else if (['mp3', 'ogg', 'wav'].includes(extension)) {
+                        // Audio files
+                        contentViewer.innerHTML += `
+                            <div class="flex flex-col items-center justify-center">
+                                <audio controls class="w-full max-w-lg">
+                                    <source src="${file.download_url}" type="audio/${extension}">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">File: ${file.name} (${(file.size / 1024).toFixed(2)} KB)</p>
+                            </div>
+                        `;
+                    } else if (['mp4', 'webm', 'ogv'].includes(extension)) {
+                        // Video files
+                        contentViewer.innerHTML += `
+                            <div class="flex flex-col items-center justify-center">
+                                <video controls class="max-w-full max-h-[80vh]">
+                                    <source src="${file.download_url}" type="video/${extension}">
+                                    Your browser does not support the video element.
+                                </video>
+                                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">File: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</p>
+                            </div>
+                        `;
+                    } else if (['pdf'].includes(extension)) {
+                        // PDF files - Note: iframe might be blocked by CSP
+                        contentViewer.innerHTML += `
+                            <div class="flex flex-col items-center justify-center">
+                                <p class="mb-4 font-medium">PDF files cannot be displayed directly due to security restrictions.</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">You can access the PDF at: <a href="${file.html_url}" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">GitHub</a></p>
+                            </div>
+                        `;
+                    } else {
+                        // Text files
+                        content = await fetchFileContent(file.download_url);
+                        
+                        // Determine language for syntax highlighting
+                        let language = '';
+                        switch (extension) {
+                            case 'js': language = 'javascript'; break;
+                            case 'ts': language = 'typescript'; break;
+                            case 'py': language = 'python'; break;
+                            case 'java': language = 'java'; break;
+                            case 'html': language = 'html'; break;
+                            case 'css': language = 'css'; break;
+                            case 'json': language = 'json'; break;
+                            case 'md': language = 'markdown'; break;
+                            case 'go': language = 'go'; break;
+                            case 'rs': language = 'rust'; break;
+                            case 'c': case 'h': language = 'c'; break;
+                            case 'cpp': case 'hpp': language = 'cpp'; break;
+                            case 'sh': language = 'bash'; break;
+                            case 'rb': language = 'ruby'; break;
+                            case 'php': language = 'php'; break;
+                            case 'xml': language = 'xml'; break;
+                            case 'sql': language = 'sql'; break;
+                            case 'yml': case 'yaml': language = 'yaml'; break;
+                            default: language = 'plaintext';
+                        }
+                        
+                        // Create container for the code
+                        const codeContainer = document.createElement('pre');
+                        const codeElement = document.createElement('code');
+                        codeElement.className = `language-${language}`;
+                        codeElement.textContent = content;
+                        codeContainer.appendChild(codeElement);
+                        contentViewer.appendChild(codeContainer);
+                        
+                        // Apply syntax highlighting
+                        hljs.highlightElement(codeElement);
+                    }
+                    
+                    // Show download button for individual files
+                    downloadBtn.classList.remove('hidden');
+                    downloadBtn.onclick = () => {
+                        window.open(file.download_url, '_blank');
+                    };
+                    
+                } catch (error) {
+                    console.error('Error viewing file:', error);
+                    contentViewer.innerHTML = `
+                        <div class="p-4 bg-red-50 dark:bg-red-900 border-l-4 border-red-500 text-red-800 dark:text-red-200">
+                            <p class="font-medium">Error loading file</p>
+                            <p class="text-sm">${error.message}</p>
+                        </div>
+                    `;
+                } finally {
+                    hideLoadingContent();
+                }
+            }
+
+            // Fetch file content
+            async function fetchFileContent(url) {
+                try {
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch file: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    return await response.text();
+                    
+                } catch (error) {
+                    console.error('Error fetching file content:', error);
+                    throw error;
+                }
+            }
+
+            // Update action buttons based on current context
+            function updateActionButtons() {
+                // Single file view
+                if (currentFiles.length === 1 && currentFiles[0].type === 'file') {
+                    downloadBtn.classList.remove('hidden');
+                    compressBtn.classList.add('hidden');
+                    
+                    downloadBtn.onclick = () => {
+                        window.open(currentFiles[0].download_url, '_blank');
+                    };
+                } 
+                // Folder/repository view
+                else {
+                    downloadBtn.classList.add('hidden');
+                    compressBtn.classList.remove('hidden');
+                    
+                    compressBtn.onclick = () => {
+                        compressAndDownload();
+                    };
+                }
+            }
+
+            // Compress and download repository/folder
+            async function compressAndDownload() {
+                downloadModal.classList.remove('hidden');
+                downloadStatus.textContent = 'Preparing files...';
+                downloadProgress.style.width = '0%';
+                
+                // Create new abort controller for this download operation
+                abortController = new AbortController();
+                const signal = abortController.signal;
+                
+                try {
+                    // Determine folder name for the zip file
+                    let zipName;
+                    if (currentPath.length > 0) {
+                        zipName = currentPath[currentPath.length - 1] + '.zip';
+                    } else {
+                        zipName = `${currentRepo.name}-${currentBranch}.zip`;
+                    }
+                    
+                    // Create new JSZip instance
+                    const zip = new JSZip();
+                    const rootFolder = zip.folder(zipName.replace('.zip', ''));
+                    
+                    // Process all files and folders recursively
+                    await processFolder(rootFolder, currentPath.join('/'), 0, signal);
+                    
+                    // Generate and download zip file
+                    downloadStatus.textContent = 'Generating ZIP file...';
+                    
+                    zip.generateAsync({
+                        type: 'blob',
+                        compression: 'DEFLATE',
+                        compressionOptions: { level: 9 }
+                    }, (metadata) => {
+                        const percent = Math.min(100, Math.round(metadata.percent));
+                        downloadProgress.style.width = `${percent}%`;
+                    }).then(blob => {
+                        // Create download link
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = zipName;
+                        
+                        // Simulate click to trigger download
+                        downloadStatus.textContent = 'Download ready!';
+                        link.click();
+                        
+                        // Clean up
+                        setTimeout(() => {
+                            URL.revokeObjectURL(link.href);
+                            downloadModal.classList.add('hidden');
+                        }, 1000);
+                    });
+                    
+                } catch (error) {
+                    if (error.name === 'AbortError') {
+                        console.log('Download was cancelled');
+                    } else {
+                        console.error('Error during compression:', error);
+                        downloadModal.classList.add('hidden');
+                        showError('Compression Error', 'Failed to compress and download files: ' + error.message);
+                    }
+                }
+            }
+
+            // Process folder recursively for compression
+            async function processFolder(zipFolder, path, depth, signal) {
+                if (depth > 10) {
+                    console.warn('Maximum folder depth reached (10), stopping to prevent infinite recursion');
+                    return;
+                }
+                
+                // Check if operation was aborted
+                if (signal.aborted) {
+                    throw new DOMException('Download aborted by user', 'AbortError');
+                }
+                
+                // Fetch folder contents
+                const url = `https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}/contents/${path}?ref=${currentBranch}`;
+                
+                try {
+                    downloadStatus.textContent = `Scanning ${path || 'repository root'}...`;
+                    
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch folder: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    const contents = await response.json();
+                    
+                    // Process each item in the folder
+                    let processedFiles = 0;
+                    const totalFiles = contents.length;
+                    
+                    for (const item of contents) {
+                        // Check if operation was aborted
+                        if (signal.aborted) {
+                            throw new DOMException('Download aborted by user', 'AbortError');
+                        }
+                        
+                        if (item.type === 'file') {
+                            // Update status
+                            processedFiles++;
+                            downloadStatus.textContent = `Processing file ${processedFiles}/${totalFiles}: ${item.name}`;
+                            downloadProgress.style.width = `${Math.round((processedFiles / totalFiles) * 100)}%`;
+                            
+                            // Fetch file content
+                            const fileResponse = await fetch(item.download_url);
+                            const fileBlob = await fileResponse.blob();
+                            
+                            // Add file to zip
+                            zipFolder.file(item.name, fileBlob);
+                            
+                        } else if (item.type === 'dir') {
+                            // Create subfolder and process recursively
+                            const subFolder = zipFolder.folder(item.name);
+                            const subPath = path ? `${path}/${item.name}` : item.name;
+                            await processFolder(subFolder, subPath, depth + 1, signal);
+                        }
+                    }
+                    
+                } catch (error) {
+                    if (error.name === 'AbortError') {
+                        throw error; // Re-throw abort errors
+                    } else {
+                        console.error(`Error processing folder ${path}:`, error);
+                        throw new Error(`Failed to process folder ${path}: ${error.message}`);
+                    }
+                }
+            }
+
+            // Show error modal
+            function showError(title, message, details = '') {
+                errorMessage.textContent = message;
+                
+                if (details) {
+                    errorDetails.textContent = details;
+                    errorDetails.classList.remove('hidden');
+                } else {
+                    errorDetails.classList.add('hidden');
+                }
+                
+                errorModal.classList.remove('hidden');
+            }
+
+            // Hide error modal
+            function hideErrorModal() {
+                errorModal.classList.add('hidden');
+            }
+
+            // Show loading spinner for files
+            function showLoadingFiles() {
+                loadingFiles.classList.remove('hidden');
+                fileList.classList.add('hidden');
+            }
+
+            // Hide loading spinner for files
+            function hideLoadingFiles() {
+                loadingFiles.classList.add('hidden');
+                fileList.classList.remove('hidden');
+            }
+
+            // Show loading overlay for content
+            function showLoadingContent() {
+                loadingContent.classList.remove('hidden');
+            }
+
+            // Hide loading overlay for content
+            function hideLoadingContent() {
+                loadingContent.classList.add('hidden');
+            }
+
+            // Hide content viewer (when browsing folders)
+            function hideContentViewer() {
+                contentViewer.innerHTML = `
+                    <div class="flex items-center justify-center h-full text-gray-400">
+                        <div class="text-center">
+                            <i class="fas fa-folder-open text-4xl mb-3"></i>
+                            <p>Select a file to view its contents</p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
