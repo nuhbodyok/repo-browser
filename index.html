@@ -23,40 +23,19 @@
             --border-dark: #374151;
         }
 
-        .dark {
-            color-scheme: dark;
-        }
+        .dark { color-scheme: dark; }
 
         @media (prefers-color-scheme: dark) {
-            .hljs {
-                background: #1f2937 !important;
-            }
+            .hljs { background: #1f2937 !important; }
         }
 
-        .dark .hljs {
-            background: #1f2937 !important;
-        }
+        .dark .hljs { background: #1f2937 !important; }
 
-        /* Custom scrollbar */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.5); border-radius: 20px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(75, 85, 99, 0.5); }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: rgba(156, 163, 175, 0.5);
-            border-radius: 20px;
-        }
-
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: rgba(75, 85, 99, 0.5);
-        }
-
-        /* Spinner */
         .spinner {
             border: 3px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
@@ -66,61 +45,22 @@
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .dark .spinner {
-            border-color: rgba(255, 255, 255, 0.1);
-            border-top-color: var(--primary-color);
-        }
+        .dark .spinner { border-color: rgba(255, 255, 255, 0.1); border-top-color: var(--primary-color); }
 
-        /* File icons */
-        .file-icon {
-            width: 20px;
-            height: 20px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .file-icon { width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; }
 
-        /* Progress bar */
-        .progress-bar {
-            height: 4px;
-            background-color: #e0e0e0;
-            border-radius: 2px;
-            overflow: hidden;
-        }
+        .progress-bar { height: 4px; background-color: #e0e0e0; border-radius: 2px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background-color: var(--primary-color); transition: width 0.3s ease; }
+        .dark .progress-bar { background-color: #374151; }
 
-        .progress-bar-fill {
-            height: 100%;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
+        #content-viewer { min-height: 300px; }
 
-        .dark .progress-bar {
-            background-color: #374151;
-        }
+        .breadcrumb-item { cursor: pointer; transition: color 0.2s; }
+        .breadcrumb-item:hover { color: var(--primary-color); }
 
-        /* Content area */
-        #content-viewer {
-            min-height: 300px;
-        }
-
-        .breadcrumb-item {
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .breadcrumb-item:hover {
-            color: var(--primary-color);
-        }
-
-        /* Markdown styling */
-        .markdown-body img {
-            max-width: 100%;
-        }
+        .markdown-body img { max-width: 100%; }
 
         .markdown-body h1,
         .markdown-body h2,
@@ -130,19 +70,10 @@
             font-weight: 600;
         }
 
-        .file-entry {
-            transition: background-color 0.2s;
-        }
+        .file-entry { transition: background-color 0.2s; }
+        .file-entry:hover { background-color: rgba(93, 92, 222, 0.1); }
+        .dark .file-entry:hover { background-color: rgba(93, 92, 222, 0.2); }
 
-        .file-entry:hover {
-            background-color: rgba(93, 92, 222, 0.1);
-        }
-
-        .dark .file-entry:hover {
-            background-color: rgba(93, 92, 222, 0.2);
-        }
-
-        /* Recent repos pill buttons */
         .repo-pill {
             transition: all 0.2s ease;
             white-space: nowrap;
@@ -156,7 +87,6 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
-        /* Language bar */
         .language-bar {
             height: 8px;
             overflow: hidden;
@@ -164,43 +94,33 @@
             display: flex;
         }
 
-        .language-segment {
-            height: 100%;
-            transition: width 0.5s ease;
-        }
+        .language-segment { height: 100%; transition: width 0.5s ease; }
 
-        /* Responsive adjustments for mobile */
         @media (max-width: 768px) {
             .file-explorer-container {
                 max-height: 40vh;
                 border-bottom: 1px solid var(--border-light);
             }
 
-            .dark .file-explorer-container {
-                border-bottom: 1px solid var(--border-dark);
-            }
-            
+            .dark .file-explorer-container { border-bottom: 1px solid var(--border-dark); }
+
             #file-explorer {
                 height: auto !important;
                 max-height: 30vh !important;
             }
-            
+
             #content-viewer {
                 height: auto !important;
                 max-height: 50vh !important;
             }
         }
 
-        /* Search box highlight */
         .search-highlight {
             background-color: rgba(93, 92, 222, 0.2);
             border-radius: 2px;
         }
 
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-        }
+        .tooltip { position: relative; }
 
         .tooltip:hover:after {
             content: attr(data-tooltip);
@@ -217,43 +137,57 @@
             z-index: 10;
         }
 
-        /* Switch animation */
-        .switch-transition {
-            transition: all 0.3s ease;
-        }
+        .switch-transition { transition: all 0.3s ease; }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen transition-colors">
     <div class="container mx-auto px-4 py-6 max-w-6xl">
         <h1 class="text-2xl font-bold mb-6 text-center">GitHub Repository Browser</h1>
-        
-        <!-- URL Input Form -->
+
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">
             <form id="repo-form" class="flex flex-col sm:flex-row gap-2">
                 <div class="flex-grow">
-                    <input 
-                        type="text" 
-                        id="repo-url" 
-                        placeholder="Enter GitHub URL (e.g., github.com/username/repo or github.com/username/repo/tree/branch/folder)" 
+                    <input
+                        type="text"
+                        id="repo-url"
+                        placeholder="Enter GitHub URL (repo/tree/blob) or search: repos:vue gist:markdown"
                         class="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white text-base"
                         required
                         list="recent-repos-datalist"
                     >
-                    <datalist id="recent-repos-datalist">
-                        <!-- Recent repositories will be added here -->
-                    </datalist>
+                    <datalist id="recent-repos-datalist"></datalist>
                 </div>
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
                     style="background-color: var(--primary-color);"
                 >
                     <i class="fas fa-search mr-1"></i> Browse
                 </button>
             </form>
+            <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                Tip: prefix with <span class="font-mono">repos:</span> to search repositories, or <span class="font-mono">gist:</span> to search gists.
+            </div>
         </div>
 
-        <!-- Recent Repositories -->
+        <div id="search-tools-container" class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">
+            <div class="flex flex-wrap gap-2 items-center justify-between mb-3">
+                <h2 class="text-lg font-semibold">Search Tools</h2>
+                <div class="text-xs text-gray-500 dark:text-gray-400">GitHub API search (rate-limited)</div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <input id="github-search-input" type="text" class="flex-grow px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white text-base" placeholder="Search GitHub repositories or gists...">
+                <select id="github-search-type" class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white">
+                    <option value="repos">Repositories</option>
+                    <option value="gists">Gists</option>
+                </select>
+                <button id="github-search-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors" style="background-color: var(--primary-color);">
+                    <i class="fas fa-search mr-1"></i> Search
+                </button>
+            </div>
+            <div id="github-search-results" class="mt-4 hidden"></div>
+        </div>
+
         <div id="recent-repos-container" class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6 hidden">
             <div class="flex justify-between items-center mb-2">
                 <h2 class="text-lg font-semibold">Recent Repositories</h2>
@@ -261,32 +195,22 @@
                     <i class="fas fa-trash-alt mr-1"></i> Clear
                 </button>
             </div>
-            <div id="recent-repos-list" class="flex flex-wrap gap-2">
-                <!-- Recent repositories will be added here -->
-            </div>
+            <div id="recent-repos-list" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <!-- Browse Container -->
         <div id="browse-container" class="hidden bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
-            <!-- Breadcrumb Navigation -->
             <div class="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center overflow-x-auto custom-scrollbar">
-                <div id="breadcrumb" class="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-300">
-                    <!-- Breadcrumb items will be added here -->
-                </div>
+                <div id="breadcrumb" class="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-300"></div>
             </div>
 
-            <!-- Action Bar -->
             <div class="flex flex-wrap justify-between items-center p-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
-                <div class="text-sm font-medium mr-2">
-                    <span id="repo-info"></span>
-                </div>
-                
-                <!-- Search box for files -->
+                <div class="text-sm font-medium mr-2"><span id="repo-info"></span></div>
+
                 <div class="flex-grow max-w-xs my-1">
                     <div class="relative">
-                        <input 
-                            type="text" 
-                            id="file-search" 
+                        <input
+                            type="text"
+                            id="file-search"
                             placeholder="Search files..."
                             class="w-full px-3 py-1 pl-8 text-sm rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white"
                         >
@@ -298,7 +222,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="flex space-x-2 ml-2">
                     <button id="stats-btn" class="text-xs sm:text-sm px-2 sm:px-3 py-1 text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-500">
                         <i class="fas fa-chart-pie mr-1"></i> <span class="hidden sm:inline">Stats</span>
@@ -312,35 +236,26 @@
                 </div>
             </div>
 
-            <!-- Content Area -->
             <div class="flex flex-col md:flex-row">
-                <!-- File Browser -->
                 <div class="w-full md:w-1/3 file-explorer-container border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700 overflow-hidden">
                     <div id="file-explorer" class="custom-scrollbar h-64 md:h-[calc(100vh-20rem)] overflow-y-auto">
-                        <!-- Loading spinner -->
                         <div id="loading-files" class="p-6 flex flex-col items-center justify-center">
                             <div class="spinner mb-3"></div>
                             <p class="text-sm text-gray-500 dark:text-gray-400">Loading repository contents...</p>
                         </div>
-                        <div id="file-list" class="hidden">
-                            <!-- File list will be populated here -->
-                        </div>
+                        <div id="file-list" class="hidden"></div>
                         <div id="empty-search-results" class="hidden p-6 text-center text-gray-500 dark:text-gray-400">
                             <i class="fas fa-search text-2xl mb-2"></i>
                             <p>No files match your search</p>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Content Viewer -->
+
                 <div class="w-full md:w-2/3">
                     <div id="content-container" class="relative">
-                        <!-- Content loading indicator -->
                         <div id="loading-content" class="hidden absolute inset-0 bg-white dark:bg-gray-800 bg-opacity-80 dark:bg-opacity-80 flex items-center justify-center z-10">
                             <div class="spinner"></div>
                         </div>
-                        
-                        <!-- Content viewer -->
                         <div id="content-viewer" class="p-4 h-96 md:h-[calc(100vh-20rem)] overflow-auto custom-scrollbar">
                             <div class="flex items-center justify-center h-full text-gray-400">
                                 <div class="text-center">
@@ -354,7 +269,7 @@
             </div>
         </div>
 
-        <!-- Download Progress Modal -->
+        <!-- Existing modals preserved -->
         <div id="download-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
                 <h3 class="text-lg font-medium mb-4">Downloading Repository</h3>
@@ -373,7 +288,6 @@
             </div>
         </div>
 
-        <!-- Repository Stats Modal -->
         <div id="stats-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
                 <div class="flex items-center justify-between mb-4">
@@ -382,58 +296,30 @@
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                
                 <div id="stats-loading" class="flex flex-col items-center justify-center py-8">
                     <div class="spinner mb-3"></div>
                     <p class="text-sm text-gray-500 dark:text-gray-400">Loading repository statistics...</p>
                 </div>
-                
                 <div id="stats-content" class="hidden">
                     <div class="mb-4">
                         <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Repository Info</h4>
                         <div class="grid grid-cols-2 gap-2 text-sm">
-                            <div>
-                                <span class="font-medium">Owner:</span>
-                                <span id="stats-owner"></span>
-                            </div>
-                            <div>
-                                <span class="font-medium">Name:</span>
-                                <span id="stats-name"></span>
-                            </div>
-                            <div>
-                                <span class="font-medium">Created:</span>
-                                <span id="stats-created"></span>
-                            </div>
-                            <div>
-                                <span class="font-medium">Last Updated:</span>
-                                <span id="stats-updated"></span>
-                            </div>
-                            <div>
-                                <span class="font-medium">Stars:</span>
-                                <span id="stats-stars"></span>
-                            </div>
-                            <div>
-                                <span class="font-medium">Forks:</span>
-                                <span id="stats-forks"></span>
-                            </div>
-                            <div>
-                                <span class="font-medium">Issues:</span>
-                                <span id="stats-issues"></span>
-                            </div>
-                            <div>
-                                <span class="font-medium">Size:</span>
-                                <span id="stats-size"></span>
-                            </div>
+                            <div><span class="font-medium">Owner:</span> <span id="stats-owner"></span></div>
+                            <div><span class="font-medium">Name:</span> <span id="stats-name"></span></div>
+                            <div><span class="font-medium">Created:</span> <span id="stats-created"></span></div>
+                            <div><span class="font-medium">Last Updated:</span> <span id="stats-updated"></span></div>
+                            <div><span class="font-medium">Stars:</span> <span id="stats-stars"></span></div>
+                            <div><span class="font-medium">Forks:</span> <span id="stats-forks"></span></div>
+                            <div><span class="font-medium">Issues:</span> <span id="stats-issues"></span></div>
+                            <div><span class="font-medium">Size:</span> <span id="stats-size"></span></div>
                         </div>
                     </div>
-                    
                     <div>
                         <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Language Distribution</h4>
                         <div class="language-bar mb-2"></div>
                         <div id="language-list" class="grid grid-cols-2 gap-1 text-xs"></div>
                     </div>
                 </div>
-                
                 <div class="flex justify-end mt-4">
                     <button id="stats-ok" class="px-4 py-2 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors" style="background-color: var(--primary-color);">
                         Close
@@ -442,7 +328,6 @@
             </div>
         </div>
 
-        <!-- Error Modal -->
         <div id="error-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
                 <div class="flex items-center justify-between mb-4">
@@ -463,7 +348,6 @@
             </div>
         </div>
 
-        <!-- Network Status Indicator -->
         <div id="network-status" class="hidden fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg text-white text-sm z-50 transition-all transform translate-y-0">
             <div id="offline-status" class="hidden bg-red-500 px-4 py-2 rounded-lg">
                 <i class="fas fa-wifi mr-2"></i> You are offline
@@ -480,60 +364,58 @@
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.classList.add('dark');
             }
-            
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-                if (event.matches) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
+                document.documentElement.classList.toggle('dark', event.matches);
             });
         }
 
-        // Main application logic
         document.addEventListener('DOMContentLoaded', function() {
             setupDarkMode();
-            
-            // Elements
-            const repoForm = document.getElementById('repo-form');
-            const repoUrlInput = document.getElementById('repo-url');
-            const browseContainer = document.getElementById('browse-container');
-            const fileExplorer = document.getElementById('file-explorer');
-            const fileList = document.getElementById('file-list');
-            const contentViewer = document.getElementById('content-viewer');
-            const breadcrumb = document.getElementById('breadcrumb');
-            const repoInfo = document.getElementById('repo-info');
-            const downloadBtn = document.getElementById('download-btn');
-            const compressBtn = document.getElementById('compress-btn');
-            const statsBtn = document.getElementById('stats-btn');
-            const loadingFiles = document.getElementById('loading-files');
-            const loadingContent = document.getElementById('loading-content');
-            const downloadModal = document.getElementById('download-modal');
-            const downloadStatus = document.getElementById('download-status');
-            const downloadProgress = document.getElementById('download-progress');
-            const cancelDownload = document.getElementById('cancel-download');
-            const errorModal = document.getElementById('error-modal');
-            const errorMessage = document.getElementById('error-message');
-            const errorDetails = document.getElementById('error-details');
-            const closeError = document.getElementById('close-error');
-            const errorOk = document.getElementById('error-ok');
-            const statsModal = document.getElementById('stats-modal');
-            const closeStats = document.getElementById('close-stats');
-            const statsOk = document.getElementById('stats-ok');
-            const statsLoading = document.getElementById('stats-loading');
-            const statsContent = document.getElementById('stats-content');
-            const fileSearch = document.getElementById('file-search');
-            const clearSearch = document.getElementById('clear-search');
-            const emptySearchResults = document.getElementById('empty-search-results');
-            const recentReposContainer = document.getElementById('recent-repos-container');
-            const recentReposList = document.getElementById('recent-repos-list');
-            const recentReposDatalist = document.getElementById('recent-repos-datalist');
-            const clearHistory = document.getElementById('clear-history');
-            const networkStatus = document.getElementById('network-status');
-            const offlineStatus = document.getElementById('offline-status');
-            const onlineStatus = document.getElementById('online-status');
 
-            // State variables
+            const $ = (id) => document.getElementById(id);
+
+            const repoForm = $('repo-form');
+            const repoUrlInput = $('repo-url');
+            const browseContainer = $('browse-container');
+            const fileList = $('file-list');
+            const contentViewer = $('content-viewer');
+            const breadcrumb = $('breadcrumb');
+            const repoInfo = $('repo-info');
+            const downloadBtn = $('download-btn');
+            const compressBtn = $('compress-btn');
+            const statsBtn = $('stats-btn');
+            const loadingFiles = $('loading-files');
+            const loadingContent = $('loading-content');
+            const downloadModal = $('download-modal');
+            const downloadStatus = $('download-status');
+            const downloadProgress = $('download-progress');
+            const cancelDownload = $('cancel-download');
+            const errorModal = $('error-modal');
+            const errorMessage = $('error-message');
+            const errorDetails = $('error-details');
+            const closeError = $('close-error');
+            const errorOk = $('error-ok');
+            const statsModal = $('stats-modal');
+            const closeStats = $('close-stats');
+            const statsOk = $('stats-ok');
+            const statsLoading = $('stats-loading');
+            const statsContent = $('stats-content');
+            const fileSearch = $('file-search');
+            const clearSearch = $('clear-search');
+            const emptySearchResults = $('empty-search-results');
+            const recentReposContainer = $('recent-repos-container');
+            const recentReposList = $('recent-repos-list');
+            const recentReposDatalist = $('recent-repos-datalist');
+            const clearHistory = $('clear-history');
+            const networkStatus = $('network-status');
+            const offlineStatus = $('offline-status');
+            const onlineStatus = $('online-status');
+
+            const githubSearchInput = $('github-search-input');
+            const githubSearchType = $('github-search-type');
+            const githubSearchBtn = $('github-search-btn');
+            const githubSearchResults = $('github-search-results');
+
             let currentRepo = null;
             let currentBranch = null;
             let currentPath = [];
@@ -544,13 +426,9 @@
             let abortController = null;
             let lastSearchValue = '';
             let debounceTimer = null;
-            
-            // Initialize syntax highlighting
-            hljs.configure({
-                languages: ['javascript', 'python', 'java', 'html', 'css', 'bash', 'json', 'typescript', 'go', 'rust', 'c', 'cpp']
-            });
-            
-            // Initialize marked
+
+            hljs.configure({ languages: ['javascript', 'python', 'java', 'html', 'css', 'bash', 'json', 'typescript', 'go', 'rust', 'c', 'cpp'] });
+
             marked.setOptions({
                 highlight: function(code, lang) {
                     const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -559,7 +437,22 @@
                 langPrefix: 'hljs language-'
             });
 
-            // Network status detection
+            const withTimeout = (ms, fn) => {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), ms);
+                return fn(controller.signal).finally(() => clearTimeout(timeoutId));
+            };
+
+            async function apiFetch(url, options = {}) {
+                const response = await fetch(url, options);
+                if (!response.ok) {
+                    if (response.status === 404) throw new Error('Resource not found.');
+                    if (response.status === 403) throw new Error('GitHub API rate limit exceeded.');
+                    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                }
+                return response;
+            }
+
             window.addEventListener('online', handleOnline);
             window.addEventListener('offline', handleOffline);
 
@@ -567,58 +460,39 @@
                 networkStatus.classList.remove('hidden');
                 offlineStatus.classList.remove('hidden');
                 onlineStatus.classList.add('hidden');
-                
-                setTimeout(() => {
-                    if (!navigator.onLine) {
-                        offlineStatus.classList.add('animate-pulse');
-                    }
-                }, 3000);
+                setTimeout(() => { if (!navigator.onLine) offlineStatus.classList.add('animate-pulse'); }, 3000);
             }
 
             function handleOnline() {
-                if (offlineStatus.classList.contains('animate-pulse')) {
-                    offlineStatus.classList.remove('animate-pulse');
-                }
-                
+                offlineStatus.classList.remove('animate-pulse');
                 networkStatus.classList.remove('hidden');
                 offlineStatus.classList.add('hidden');
                 onlineStatus.classList.remove('hidden');
-                
-                setTimeout(() => {
-                    if (navigator.onLine) {
-                        networkStatus.classList.add('hidden');
-                    }
-                }, 3000);
+                setTimeout(() => { if (navigator.onLine) networkStatus.classList.add('hidden'); }, 3000);
             }
 
-            // Load language colors (for statistics)
             fetch('https://cdn.jsdelivr.net/gh/ozh/github-colors/colors.json')
-                .then(response => response.json())
-                .then(data => {
-                    languageColors = data;
-                })
-                .catch(error => {
-                    console.error('Could not load language colors:', error);
-                    // Fallback colors
+                .then(r => r.json())
+                .then(data => { languageColors = data; })
+                .catch(() => {
                     languageColors = {
-                        "JavaScript": { "color": "#f1e05a" },
-                        "TypeScript": { "color": "#2b7489" },
-                        "HTML": { "color": "#e34c26" },
-                        "CSS": { "color": "#563d7c" },
-                        "Python": { "color": "#3572A5" },
-                        "Java": { "color": "#b07219" },
-                        "Go": { "color": "#00ADD8" },
-                        "C++": { "color": "#f34b7d" },
-                        "Ruby": { "color": "#701516" },
-                        "PHP": { "color": "#4F5D95" },
-                        "Shell": { "color": "#89e051" },
-                        "C": { "color": "#555555" },
-                        "C#": { "color": "#178600" },
-                        "Rust": { "color": "#dea584" }
+                        JavaScript: { color: '#f1e05a' },
+                        TypeScript: { color: '#2b7489' },
+                        HTML: { color: '#e34c26' },
+                        CSS: { color: '#563d7c' },
+                        Python: { color: '#3572A5' },
+                        Java: { color: '#b07219' },
+                        Go: { color: '#00ADD8' },
+                        'C++': { color: '#f34b7d' },
+                        Ruby: { color: '#701516' },
+                        PHP: { color: '#4F5D95' },
+                        Shell: { color: '#89e051' },
+                        C: { color: '#555555' },
+                        'C#': { color: '#178600' },
+                        Rust: { color: '#dea584' }
                     };
                 });
 
-            // Load recent repositories from localStorage
             function loadRecentRepos() {
                 try {
                     const saved = localStorage.getItem('github-browser-recent');
@@ -626,183 +500,528 @@
                         recentRepos = JSON.parse(saved);
                         updateRecentReposUI();
                     }
-                } catch (error) {
-                    console.error('Error loading recent repositories:', error);
-                    // Reset if corrupted
+                } catch {
                     recentRepos = [];
                 }
             }
 
-            // Save recent repositories to localStorage
             function saveRecentRepos() {
-                try {
-                    localStorage.setItem('github-browser-recent', JSON.stringify(recentRepos));
-                } catch (error) {
-                    console.error('Error saving recent repositories:', error);
-                    showError('Storage Error', 'Failed to save recent repositories: ' + error.message);
-                }
+                try { localStorage.setItem('github-browser-recent', JSON.stringify(recentRepos)); } catch {}
             }
 
-            // Add repository to recent list
+            function repoPathToUrl(repo) {
+                const path = repo.path && repo.path.length ? `/tree/${repo.branch}/${repo.path.join('/')}` : (repo.branch ? `/tree/${repo.branch}` : '');
+                return `github.com/${repo.owner}/${repo.name}${path}`;
+            }
+
             function addToRecentRepos(owner, name, branch, path) {
-                // Check if already exists
-                const existingIndex = recentRepos.findIndex(repo => 
-                    repo.owner === owner && 
-                    repo.name === name && 
-                    repo.branch === branch &&
-                    JSON.stringify(repo.path) === JSON.stringify(path)
-                );
-                
-                // Remove if exists (will be re-added at the front)
-                if (existingIndex !== -1) {
-                    recentRepos.splice(existingIndex, 1);
-                }
-                
-                // Add to front of array
-                recentRepos.unshift({
-                    owner,
-                    name,
-                    branch,
-                    path,
-                    timestamp: Date.now()
-                });
-                
-                // Keep only the most recent 10
-                if (recentRepos.length > 10) {
-                    recentRepos.pop();
-                }
-                
-                // Save and update UI
+                const key = JSON.stringify({ owner, name, branch, path });
+                recentRepos = recentRepos.filter(r => JSON.stringify({ owner: r.owner, name: r.name, branch: r.branch, path: r.path }) !== key);
+                recentRepos.unshift({ owner, name, branch, path, timestamp: Date.now() });
+                recentRepos = recentRepos.slice(0, 10);
                 saveRecentRepos();
                 updateRecentReposUI();
             }
 
-            // Update recent repositories UI
             function updateRecentReposUI() {
-                // Clear existing
                 recentReposList.innerHTML = '';
                 recentReposDatalist.innerHTML = '';
-                
-                // Hide if empty
-                if (recentRepos.length === 0) {
-                    recentReposContainer.classList.add('hidden');
-                    return;
-                }
-                
-                // Show container
-                recentReposContainer.classList.remove('hidden');
-                
-                // Add to datalist for autocomplete
+                recentReposContainer.classList.toggle('hidden', recentRepos.length === 0);
                 recentRepos.forEach(repo => {
-                    let path = '';
-                    if (repo.path && repo.path.length > 0) {
-                        path = '/tree/' + repo.branch + '/' + repo.path.join('/');
-                    } else if (repo.branch) {
-                        path = '/tree/' + repo.branch;
-                    }
-                    
-                    const option = document.createElement('option');
-                    option.value = `github.com/${repo.owner}/${repo.name}${path}`;
-                    recentReposDatalist.appendChild(option);
-                });
-                
-                // Add visual buttons
-                recentRepos.forEach(repo => {
+                    const opt = document.createElement('option');
+                    opt.value = repoPathToUrl(repo);
+                    recentReposDatalist.appendChild(opt);
+
                     const pill = document.createElement('button');
-                    pill.className = 'repo-pill text-xs px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors';
-                    
-                    // Format relative time
-                    const relativeTime = getRelativeTimeString(repo.timestamp);
-                    
-                    const repoText = `${repo.owner}/${repo.name}`;
-                    pill.textContent = repoText;
-                    
-                    if (repo.path && repo.path.length > 0) {
-                        pill.setAttribute('data-tooltip', `${repoText} (${repo.branch}) - ${repo.path.join('/')} - ${relativeTime}`);
-                    } else {
-                        pill.setAttribute('data-tooltip', `${repoText} (${repo.branch}) - ${relativeTime}`);
-                    }
-                    pill.classList.add('tooltip');
-                    
+                    pill.className = 'repo-pill text-xs px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors tooltip';
+                    pill.textContent = `${repo.owner}/${repo.name}`;
+                    pill.setAttribute('data-tooltip', `${repo.owner}/${repo.name} (${repo.branch})`);
                     pill.addEventListener('click', () => {
-                        let path = '';
-                        if (repo.path && repo.path.length > 0) {
-                            path = '/tree/' + repo.branch + '/' + repo.path.join('/');
-                        } else if (repo.branch) {
-                            path = '/tree/' + repo.branch;
-                        }
-                        
-                        repoUrlInput.value = `github.com/${repo.owner}/${repo.name}${path}`;
+                        repoUrlInput.value = repoPathToUrl(repo);
                         repoForm.dispatchEvent(new Event('submit'));
                     });
-                    
                     recentReposList.appendChild(pill);
                 });
             }
 
-            // Get relative time string (e.g., "2 hours ago")
             function getRelativeTimeString(timestamp) {
-                const now = Date.now();
-                const diff = now - timestamp;
-                
-                const seconds = Math.floor(diff / 1000);
-                const minutes = Math.floor(seconds / 60);
+                const diff = Date.now() - timestamp;
+                const minutes = Math.floor(diff / 60000);
                 const hours = Math.floor(minutes / 60);
                 const days = Math.floor(hours / 24);
                 const months = Math.floor(days / 30);
-                
-                if (months > 0) {
-                    return months === 1 ? '1 month ago' : `${months} months ago`;
-                } else if (days > 0) {
-                    return days === 1 ? '1 day ago' : `${days} days ago`;
-                } else if (hours > 0) {
-                    return hours === 1 ? '1 hour ago' : `${hours} hours ago`;
-                } else if (minutes > 0) {
-                    return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`;
+                if (months > 0) return months === 1 ? '1 month ago' : `${months} months ago`;
+                if (days > 0) return days === 1 ? '1 day ago' : `${days} days ago`;
+                if (hours > 0) return hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+                if (minutes > 0) return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`;
+                return 'Just now';
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' bytes';
+                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+                if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+                return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+            }
+
+            function formatDate(dateString) {
+                return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(dateString));
+            }
+
+            function showError(title, message, details = '') {
+                errorMessage.textContent = message;
+                errorDetails.textContent = details;
+                errorDetails.classList.toggle('hidden', !details);
+                errorModal.classList.remove('hidden');
+            }
+
+            function hideErrorModal() { errorModal.classList.add('hidden'); }
+            function hideStatsModal() { statsModal.classList.add('hidden'); }
+            function showLoadingFiles() { loadingFiles.classList.remove('hidden'); fileList.classList.add('hidden'); emptySearchResults.classList.add('hidden'); }
+            function hideLoadingFiles() { loadingFiles.classList.add('hidden'); fileList.classList.remove('hidden'); }
+            function showLoadingContent() { loadingContent.classList.remove('hidden'); }
+            function hideLoadingContent() { loadingContent.classList.add('hidden'); }
+            function hideContentViewer() {
+                contentViewer.innerHTML = `<div class="flex items-center justify-center h-full text-gray-400"><div class="text-center"><i class="fas fa-folder-open text-4xl mb-3"></i><p>Select a file to view its contents</p></div></div>`;
+            }
+
+            function updateRepoInfo() { repoInfo.textContent = `${currentRepo.owner}/${currentRepo.name} (${currentBranch})`; }
+
+            function highlightText(text, searchTerm) {
+                if (!searchTerm) return text;
+                const regex = new RegExp('(' + searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                return text.replace(regex, '<span class="search-highlight">$1</span>');
+            }
+
+            function filterFiles(searchValue) {
+                const entries = fileList.querySelectorAll('.file-entry');
+                let matchCount = 0;
+                entries.forEach(entry => {
+                    const nameElement = entry.querySelector('.file-name');
+                    const original = nameElement.dataset.originalName || nameElement.textContent;
+                    nameElement.dataset.originalName = original;
+                    const match = !searchValue || original.toLowerCase().includes(searchValue);
+                    entry.classList.toggle('hidden', !match);
+                    if (match) {
+                        matchCount++;
+                        nameElement.innerHTML = searchValue ? highlightText(original, searchValue) : original;
+                    }
+                });
+                emptySearchResults.classList.toggle('hidden', !(matchCount === 0 && searchValue));
+                fileList.classList.toggle('hidden', matchCount === 0 && searchValue);
+            }
+
+            function parseGitHubUrl(url) {
+                url = url.trim();
+                const searchPrefix = url.match(/^(repos?|gists?)\s*:\s*(.+)$/i);
+                if (searchPrefix) return runGithubSearch(searchPrefix[1].toLowerCase().startsWith('gist') ? 'gists' : 'repos', searchPrefix[2]);
+
+                url = url.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '');
+                const parts = url.split('/');
+                if (parts.length < 2) throw new Error('Invalid GitHub URL. Please provide a valid repository URL.');
+                const owner = parts[0], repo = parts[1];
+
+                currentRepo = { owner, name: repo };
+                currentPath = [];
+                if (parts.length > 2 && (parts[2] === 'tree' || parts[2] === 'blob')) {
+                    if (parts.length < 4) throw new Error('Invalid GitHub URL. Branch name is missing.');
+                    currentBranch = parts[3];
+                    if (parts.length > 4) currentPath = parts.slice(4);
+                } else if (parts.length > 2) {
+                    currentBranch = null;
+                    currentPath = parts.slice(2);
                 } else {
-                    return 'Just now';
+                    currentBranch = null;
+                }
+                browseContainer.classList.remove('hidden');
+                fetchRepositoryContent();
+            }
+
+            async function fetchRepoInfo() {
+                const response = await apiFetch(`https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}`);
+                return response.json();
+            }
+
+            async function fetchContents() {
+                const path = currentPath.join('/');
+                const response = await apiFetch(`https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}/contents/${path}?ref=${currentBranch}`);
+                return response.json();
+            }
+
+            async function fetchRepoStats() {
+                const [repoResponse, langResponse] = await Promise.all([
+                    apiFetch(`https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}`),
+                    apiFetch(`https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}/languages`)
+                ]);
+                return { repoInfo: await repoResponse.json(), languages: await langResponse.json() };
+            }
+
+            async function fetchFileContent(url) {
+                return withTimeout(30000, async (signal) => {
+                    const response = await fetch(url, { signal });
+                    if (!response.ok) throw new Error(`Failed to fetch file: ${response.status} ${response.statusText}`);
+                    return response.text();
+                });
+            }
+
+            function getFileIcon(item) {
+                if (item.type === 'dir') return '<i class="fas fa-folder text-yellow-500"></i>';
+                const extension = item.name.split('.').pop().toLowerCase();
+                const map = {
+                    js: '<i class="fab fa-js-square text-yellow-400"></i>',
+                    jsx: '<i class="fab fa-react text-blue-400"></i>',
+                    ts: '<i class="fab fa-js-square text-blue-500"></i>',
+                    tsx: '<i class="fab fa-react text-blue-500"></i>',
+                    html: '<i class="fab fa-html5 text-orange-500"></i>',
+                    css: '<i class="fab fa-css3-alt text-blue-500"></i>',
+                    scss: '<i class="fab fa-sass text-pink-500"></i>',
+                    md: '<i class="fas fa-file-alt text-gray-500"></i>',
+                    json: '<i class="fas fa-code text-gray-500"></i>',
+                    py: '<i class="fab fa-python text-blue-600"></i>',
+                    java: '<i class="fab fa-java text-red-600"></i>',
+                    rb: '<i class="fas fa-gem text-red-500"></i>',
+                    php: '<i class="fab fa-php text-purple-500"></i>',
+                    c: '<i class="fas fa-file-code text-blue-400"></i>',
+                    cpp: '<i class="fas fa-file-code text-blue-500"></i>',
+                    h: '<i class="fas fa-file-code text-blue-300"></i>',
+                    go: '<i class="fas fa-file-code text-cyan-500"></i>',
+                    rs: '<i class="fas fa-file-code text-orange-600"></i>',
+                    sh: '<i class="fas fa-terminal text-green-500"></i>',
+                    bat: '<i class="fas fa-terminal text-gray-500"></i>',
+                    ps1: '<i class="fas fa-terminal text-blue-500"></i>',
+                    jpg: '<i class="fas fa-file-image text-purple-400"></i>',
+                    jpeg: '<i class="fas fa-file-image text-purple-400"></i>',
+                    png: '<i class="fas fa-file-image text-green-400"></i>',
+                    gif: '<i class="fas fa-file-image text-blue-400"></i>',
+                    svg: '<i class="fas fa-file-image text-orange-400"></i>',
+                    pdf: '<i class="fas fa-file-pdf text-red-500"></i>',
+                    zip: '<i class="fas fa-file-archive text-yellow-600"></i>',
+                    tar: '<i class="fas fa-file-archive text-yellow-600"></i>',
+                    gz: '<i class="fas fa-file-archive text-red-400"></i>',
+                    mp3: '<i class="fas fa-file-audio text-blue-400"></i>',
+                    wav: '<i class="fas fa-file-audio text-purple-400"></i>',
+                    mp4: '<i class="fas fa-file-video text-red-400"></i>',
+                    mov: '<i class="fas fa-file-video text-blue-500"></i>',
+                    txt: '<i class="fas fa-file-alt text-gray-500"></i>',
+                    log: '<i class="fas fa-file-alt text-gray-400"></i>',
+                    yml: '<i class="fas fa-file-code text-indigo-400"></i>',
+                    yaml: '<i class="fas fa-file-code text-indigo-400"></i>',
+                    toml: '<i class="fas fa-file-code text-gray-500"></i>',
+                    lock: '<i class="fas fa-lock text-gray-500"></i>'
+                };
+                return map[extension] || '<i class="fas fa-file text-gray-400"></i>';
+            }
+
+            function updateActionButtons() {
+                if (currentFiles.length === 1 && currentFiles[0].type === 'file') {
+                    downloadBtn.classList.remove('hidden');
+                    compressBtn.classList.add('hidden');
+                    downloadBtn.onclick = () => window.open(currentFiles[0].download_url, '_blank');
+                } else {
+                    downloadBtn.classList.add('hidden');
+                    compressBtn.classList.remove('hidden');
+                    compressBtn.onclick = compressAndDownload;
                 }
             }
 
-            // Format file size 
-            function formatFileSize(bytes) {
-                if (bytes < 1024) return bytes + ' bytes';
-                else if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-                else if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-                else return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+            function updateBreadcrumb() {
+                breadcrumb.innerHTML = '';
+                const rootItem = document.createElement('span');
+                rootItem.className = 'breadcrumb-item flex items-center';
+                rootItem.innerHTML = '<i class="fas fa-home mr-1"></i> Root';
+                rootItem.addEventListener('click', () => navigateBreadcrumb(-1));
+                breadcrumb.appendChild(rootItem);
+
+                if (currentPath.length > 0) {
+                    breadcrumb.appendChild(Object.assign(document.createElement('span'), { className: 'mx-1 text-gray-400', textContent: '/' }));
+                }
+
+                currentPath.forEach((segment, index) => {
+                    const item = document.createElement('span');
+                    item.className = 'breadcrumb-item';
+                    item.textContent = segment;
+                    item.addEventListener('click', () => navigateBreadcrumb(index));
+                    breadcrumb.appendChild(item);
+                    if (index < currentPath.length - 1) breadcrumb.appendChild(Object.assign(document.createElement('span'), { className: 'mx-1 text-gray-400', textContent: '/' }));
+                });
             }
 
-            // Format date for display
-            function formatDate(dateString) {
-                const date = new Date(dateString);
-                return new Intl.DateTimeFormat('en-US', { 
-                    year: 'numeric', 
-                    month: 'short', 
-                    day: 'numeric' 
-                }).format(date);
+            function navigateToFolder(folderName) {
+                currentPath.push(folderName);
+                fetchRepositoryContent();
             }
 
-            // Handle form submission
+            function navigateBreadcrumb(index) {
+                currentPath = index < 0 ? [] : currentPath.slice(0, index + 1);
+                fetchRepositoryContent();
+            }
+
+            async function viewFile(file) {
+                showLoadingContent();
+                try {
+                    contentViewer.innerHTML = '';
+                    if (file.size > 1000000) {
+                        contentViewer.innerHTML = `<div class="p-4 bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-400 text-yellow-800 dark:text-yellow-200 mb-4"><p class="font-medium">Warning: Large File</p><p class="text-sm">This file is ${(file.size / 1000000).toFixed(2)} MB in size. Displaying it may be slow.</p></div>`;
+                    }
+
+                    const ext = file.name.split('.').pop().toLowerCase();
+
+                    if (file.name.toLowerCase().match(/^readme\.(md|markdown)$/)) {
+                        const content = await fetchFileContent(file.download_url);
+                        contentViewer.innerHTML += `<div class="markdown-body">${marked.parse(content)}</div>`;
+                    } else if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp'].includes(ext)) {
+                        contentViewer.innerHTML += `<div class="flex flex-col items-center justify-center"><img src="${file.download_url}" alt="${file.name}" class="max-w-full max-h-[80vh] object-contain shadow-lg rounded" /><p class="mt-3 text-sm text-gray-500 dark:text-gray-400">To save this image, right-click on it and select "Save image as..."</p></div>`;
+                    } else if (['mp3', 'ogg', 'wav'].includes(ext)) {
+                        contentViewer.innerHTML += `<div class="flex flex-col items-center justify-center"><audio controls class="w-full max-w-lg"><source src="${file.download_url}" type="audio/${ext}">Your browser does not support the audio element.</audio><p class="mt-3 text-sm text-gray-500 dark:text-gray-400">File: ${file.name} (${(file.size / 1024).toFixed(2)} KB)</p></div>`;
+                    } else if (['mp4', 'webm', 'ogv'].includes(ext)) {
+                        contentViewer.innerHTML += `<div class="flex flex-col items-center justify-center"><video controls class="max-w-full max-h-[80vh]"><source src="${file.download_url}" type="video/${ext}">Your browser does not support the video element.</video><p class="mt-3 text-sm text-gray-500 dark:text-gray-400">File: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</p></div>`;
+                    } else if (ext === 'pdf') {
+                        contentViewer.innerHTML += `<div class="flex flex-col items-center justify-center"><p class="mb-4 font-medium">PDF files cannot be displayed directly due to security restrictions.</p><p class="text-sm text-gray-500 dark:text-gray-400">You can access the PDF at: <a href="${file.html_url}" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">GitHub</a></p></div>`;
+                    } else if (file.size > 5000000) {
+                        contentViewer.innerHTML += `<div class="flex flex-col items-center justify-center p-6 text-center"><i class="fas fa-exclamation-triangle text-yellow-500 text-4xl mb-4"></i><h3 class="text-lg font-medium mb-2">File Too Large to Display</h3><p class="mb-4">This file is ${(file.size / 1000000).toFixed(2)} MB, which exceeds the recommended size limit for in-browser viewing.</p><a href="${file.download_url}" target="_blank" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors" style="background-color: var(--primary-color);">View Raw File</a></div>`;
+                    } else {
+                        const content = await fetchFileContent(file.download_url);
+                        const isBinary = /[\x00-\x08\x0E-\x1F]/.test(content.substring(0, Math.min(1000, content.length)));
+                        if (isBinary) {
+                            contentViewer.innerHTML += `<div class="flex flex-col items-center justify-center p-6 text-center"><i class="fas fa-file-alt text-gray-400 text-4xl mb-4"></i><h3 class="text-lg font-medium mb-2">Binary File</h3><p class="mb-4">This appears to be a binary file and cannot be displayed in the browser.</p><a href="${file.download_url}" target="_blank" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors" style="background-color: var(--primary-color);">View Raw File</a></div>`;
+                        } else {
+                            const languageMap = { js:'javascript', jsx:'javascript', ts:'typescript', tsx:'typescript', py:'python', java:'java', html:'html', css:'css', json:'json', md:'markdown', go:'go', rs:'rust', c:'c', h:'c', cpp:'cpp', hpp:'cpp', sh:'bash', rb:'ruby', php:'php', xml:'xml', sql:'sql', yml:'yaml', yaml:'yaml' };
+                            const codeContainer = document.createElement('pre');
+                            const codeElement = document.createElement('code');
+                            codeElement.className = `language-${languageMap[ext] || 'plaintext'}`;
+                            codeElement.textContent = content;
+                            codeContainer.appendChild(codeElement);
+                            contentViewer.appendChild(codeContainer);
+                            hljs.highlightElement(codeElement);
+                        }
+                    }
+
+                    downloadBtn.classList.remove('hidden');
+                    downloadBtn.onclick = () => window.open(file.download_url, '_blank');
+                } catch (error) {
+                    contentViewer.innerHTML = `<div class="p-4 bg-red-50 dark:bg-red-900 border-l-4 border-red-500 text-red-800 dark:text-red-200"><p class="font-medium">Error loading file</p><p class="text-sm">${error.message}</p></div>`;
+                } finally {
+                    hideLoadingContent();
+                }
+            }
+
+            function displayContents(contents) {
+                currentFiles = Array.isArray(contents) ? contents : [contents];
+                if (!Array.isArray(contents)) {
+                    viewFile(contents);
+                    hideLoadingFiles();
+                    return;
+                }
+
+                currentFiles.sort((a, b) => a.type !== b.type ? (a.type === 'dir' ? -1 : 1) : a.name.localeCompare(b.name));
+                fileList.innerHTML = '';
+
+                currentFiles.forEach(item => {
+                    const listItem = document.createElement('div');
+                    listItem.className = 'file-entry p-2 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-750 cursor-pointer flex items-center';
+                    listItem.innerHTML = `<div class="file-icon mr-3">${getFileIcon(item)}</div><div class="flex-grow truncate file-name" data-original-name="${item.name}">${item.name}</div><div class="text-xs text-gray-500 dark:text-gray-400 ml-2">${item.size ? formatFileSize(item.size) : ''}</div>`;
+                    listItem.addEventListener('click', () => item.type === 'dir' ? navigateToFolder(item.name) : viewFile(item));
+                    fileList.appendChild(listItem);
+                });
+
+                fileList.classList.remove('hidden');
+                emptySearchResults.classList.add('hidden');
+                hideLoadingFiles();
+                updateActionButtons();
+                if (lastSearchValue) filterFiles(lastSearchValue);
+            }
+
+            async function fetchRepositoryContent() {
+                showLoadingFiles();
+                hideContentViewer();
+                clearSearch.classList.add('hidden');
+                fileSearch.value = '';
+                updateBreadcrumb();
+
+                try {
+                    if (!currentBranch) {
+                        const info = await fetchRepoInfo();
+                        currentBranch = info.default_branch;
+                    }
+                    updateRepoInfo();
+                    const contents = await fetchContents();
+                    addToRecentRepos(currentRepo.owner, currentRepo.name, currentBranch, currentPath);
+                    displayContents(contents);
+                } catch (error) {
+                    if (!navigator.onLine) showError('Network Error', 'You appear to be offline. Please check your internet connection and try again.');
+                    else showError('Repository Error', 'Failed to fetch repository content. ' + error.message);
+                }
+            }
+
+            async function showStats() {
+                statsModal.classList.remove('hidden');
+                statsLoading.classList.remove('hidden');
+                statsContent.classList.add('hidden');
+                try {
+                    repoStats = await fetchRepoStats();
+                    updateStatsUI();
+                    statsLoading.classList.add('hidden');
+                    statsContent.classList.remove('hidden');
+                } catch (error) {
+                    hideStatsModal();
+                    showError('Statistics Error', 'Failed to load repository statistics: ' + error.message);
+                }
+            }
+
+            function updateStatsUI() {
+                if (!repoStats) return;
+                const { repoInfo, languages } = repoStats;
+                $('stats-owner').textContent = repoInfo.owner.login;
+                $('stats-name').textContent = repoInfo.name;
+                $('stats-created').textContent = formatDate(repoInfo.created_at);
+                $('stats-updated').textContent = formatDate(repoInfo.updated_at);
+                $('stats-stars').textContent = repoInfo.stargazers_count.toLocaleString();
+                $('stats-forks').textContent = repoInfo.forks_count.toLocaleString();
+                $('stats-issues').textContent = repoInfo.open_issues_count.toLocaleString();
+                $('stats-size').textContent = formatFileSize(repoInfo.size * 1024);
+
+                const languageBar = statsModal.querySelector('.language-bar');
+                const languageList = $('language-list');
+                languageBar.innerHTML = '';
+                languageList.innerHTML = '';
+
+                const entries = Object.entries(languages);
+                if (!entries.length) {
+                    languageBar.innerHTML = '<div class="h-full w-full bg-gray-200 dark:bg-gray-700"></div>';
+                    languageList.innerHTML = '<div class="col-span-2 text-center text-gray-500 dark:text-gray-400">No language data available</div>';
+                    return;
+                }
+
+                const totalBytes = entries.reduce((sum, [, bytes]) => sum + bytes, 0);
+                entries.sort((a, b) => b[1] - a[1]).forEach(([name, bytes]) => {
+                    const pct = ((bytes / totalBytes) * 100).toFixed(1);
+                    const segment = document.createElement('div');
+                    segment.className = 'language-segment tooltip';
+                    segment.style.width = `${pct}%`;
+                    segment.style.backgroundColor = languageColors[name]?.color || '#cccccc';
+                    segment.setAttribute('data-tooltip', `${name}: ${pct}%`);
+                    languageBar.appendChild(segment);
+
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center mb-1';
+                    item.innerHTML = `<span class="w-3 h-3 rounded-full mr-1.5" style="background-color: ${languageColors[name]?.color || '#cccccc'}"></span><span class="mr-1.5">${name}</span><span class="text-gray-500 dark:text-gray-400">${pct}%</span>`;
+                    languageList.appendChild(item);
+                });
+            }
+
+            async function compressAndDownload() {
+                downloadModal.classList.remove('hidden');
+                downloadStatus.textContent = 'Preparing files...';
+                downloadProgress.style.width = '0%';
+                abortController = new AbortController();
+                const signal = abortController.signal;
+
+                try {
+                    const zipName = currentPath.length > 0 ? `${currentPath[currentPath.length - 1]}.zip` : `${currentRepo.name}-${currentBranch}.zip`;
+                    const zip = new JSZip();
+                    const rootFolder = zip.folder(zipName.replace('.zip', ''));
+                    await processFolder(rootFolder, currentPath.join('/'), 0, signal);
+                    downloadStatus.textContent = 'Generating ZIP file...';
+
+                    const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 9 } }, m => {
+                        downloadProgress.style.width = `${Math.min(100, Math.round(m.percent))}%`;
+                    });
+
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = zipName;
+                    link.click();
+                    setTimeout(() => { URL.revokeObjectURL(link.href); downloadModal.classList.add('hidden'); }, 1000);
+                } catch (error) {
+                    if (error.name !== 'AbortError') showError('Compression Error', 'Failed to compress and download files: ' + error.message);
+                    downloadModal.classList.add('hidden');
+                }
+            }
+
+            async function processFolder(zipFolder, path, depth, signal) {
+                if (depth > 10) return;
+                if (signal.aborted) throw new DOMException('Download aborted by user', 'AbortError');
+
+                const response = await fetch(`https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}/contents/${path}?ref=${currentBranch}`);
+                if (!response.ok) throw new Error(`Failed to fetch folder: ${response.status} ${response.statusText}`);
+                const contents = await response.json();
+
+                let processedFiles = 0;
+                for (const item of contents) {
+                    if (signal.aborted) throw new DOMException('Download aborted by user', 'AbortError');
+                    if (item.type === 'file') {
+                        processedFiles++;
+                        downloadStatus.textContent = `Processing file ${processedFiles}/${contents.length}: ${item.name}`;
+                        downloadProgress.style.width = `${Math.round((processedFiles / contents.length) * 100)}%`;
+
+                        try {
+                            if (item.size > 50000000) {
+                                zipFolder.file(item.name + '.skipped.txt', `This file was too large to include in the ZIP file: ${item.name} (${formatFileSize(item.size)})\nYou can download it directly from: ${item.html_url}`);
+                                continue;
+                            }
+                            const fileResponse = await fetch(item.download_url);
+                            const fileBlob = await fileResponse.blob();
+                            zipFolder.file(item.name, fileBlob);
+                        } catch (error) {
+                            zipFolder.file(item.name + '.error.txt', `Error fetching this file: ${error.message}\nYou can download it directly from: ${item.html_url}`);
+                        }
+                    } else if (item.type === 'dir') {
+                        const subFolder = zipFolder.folder(item.name);
+                        const subPath = path ? `${path}/${item.name}` : item.name;
+                        await processFolder(subFolder, subPath, depth + 1, signal);
+                    }
+                }
+            }
+
+            async function runGithubSearch(type, query) {
+                githubSearchResults.classList.remove('hidden');
+                githubSearchResults.innerHTML = `<div class="p-4 flex items-center gap-3"><div class="spinner"></div><div class="text-sm text-gray-500 dark:text-gray-400">Searching ${type}...</div></div>`;
+
+                try {
+                    const endpoint = type === 'gists'
+                        ? `https://api.github.com/search/gists?q=${encodeURIComponent(query)}`
+                        : `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc`;
+
+                    const response = await fetch(endpoint);
+                    if (!response.ok) throw new Error(`Search failed: ${response.status} ${response.statusText}`);
+                    const data = await response.json();
+
+                    const items = data.items || [];
+                    if (!items.length) {
+                        githubSearchResults.innerHTML = `<div class="p-4 text-sm text-gray-500 dark:text-gray-400">No results found.</div>`;
+                        return;
+                    }
+
+                    githubSearchResults.innerHTML = `<div class="grid gap-2">${items.slice(0, 10).map(item => {
+                        if (type === 'gists') {
+                            const fileNames = Object.keys(item.files || {});
+                            const desc = item.description || 'No description';
+                            return `<a href="${item.html_url}" target="_blank" class="block p-3 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"><div class="font-medium">${item.owner?.login || 'Anonymous'} / ${fileNames[0] || 'gist'}</div><div class="text-xs text-gray-500 dark:text-gray-400">${desc}</div></a>`;
+                        }
+                        return `<a href="#" data-repo-url="github.com/${item.full_name}" class="search-repo-link block p-3 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"><div class="font-medium">${item.full_name}</div><div class="text-xs text-gray-500 dark:text-gray-400">${item.description || 'No description'}</div></a>`;
+                    }).join('')}</div>`;
+
+                    githubSearchResults.querySelectorAll('[data-repo-url]').forEach(link => {
+                        link.addEventListener('click', e => {
+                            e.preventDefault();
+                            repoUrlInput.value = link.dataset.repoUrl;
+                            repoForm.dispatchEvent(new Event('submit'));
+                        });
+                    });
+                } catch (error) {
+                    githubSearchResults.innerHTML = `<div class="p-4 text-sm text-red-600 dark:text-red-400">Search error: ${error.message}</div>`;
+                }
+            }
+
             repoForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const url = repoUrlInput.value.trim();
-                if (url) {
-                    parseGitHubUrl(url);
-                }
+                if (url) parseGitHubUrl(url);
             });
 
-            // Handle file search
             fileSearch.addEventListener('input', function(e) {
                 const searchValue = e.target.value.trim().toLowerCase();
-                
-                // Clear button visibility
-                if (searchValue.length > 0) {
-                    clearSearch.classList.remove('hidden');
-                } else {
-                    clearSearch.classList.add('hidden');
-                }
-                
-                // Debounce search to improve performance
+                clearSearch.classList.toggle('hidden', !searchValue);
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
                     lastSearchValue = searchValue;
@@ -810,7 +1029,6 @@
                 }, 300);
             });
 
-            // Handle clear search
             clearSearch.addEventListener('click', function() {
                 fileSearch.value = '';
                 clearSearch.classList.add('hidden');
@@ -819,52 +1037,6 @@
                 fileSearch.focus();
             });
 
-            // Filter files based on search
-            function filterFiles(searchValue) {
-                if (!fileList || !currentFiles.length) return;
-                
-                const fileEntries = fileList.querySelectorAll('.file-entry');
-                let matchCount = 0;
-                
-                fileEntries.forEach(entry => {
-                    const fileName = entry.querySelector('.file-name').textContent.toLowerCase();
-                    
-                    if (searchValue === '' || fileName.includes(searchValue)) {
-                        entry.classList.remove('hidden');
-                        matchCount++;
-                        
-                        // Highlight matching text
-                        const nameElement = entry.querySelector('.file-name');
-                        if (searchValue !== '') {
-                            const highlightedName = highlightText(nameElement.textContent, searchValue);
-                            nameElement.innerHTML = highlightedName;
-                        } else {
-                            nameElement.textContent = nameElement.textContent;
-                        }
-                    } else {
-                        entry.classList.add('hidden');
-                    }
-                });
-                
-                // Show/hide empty results message
-                if (matchCount === 0 && searchValue !== '') {
-                    emptySearchResults.classList.remove('hidden');
-                    fileList.classList.add('hidden');
-                } else {
-                    emptySearchResults.classList.add('hidden');
-                    fileList.classList.remove('hidden');
-                }
-            }
-
-            // Highlight text in search results
-            function highlightText(text, searchTerm) {
-                if (!searchTerm) return text;
-                
-                const regex = new RegExp('(' + searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-                return text.replace(regex, '<span class="search-highlight">$1</span>');
-            }
-
-            // Clear history button
             clearHistory.addEventListener('click', function() {
                 if (confirm('Are you sure you want to clear your browsing history?')) {
                     recentRepos = [];
@@ -873,955 +1045,29 @@
                 }
             });
 
-            // Stats button handler
-            statsBtn.addEventListener('click', function() {
-                showStats();
-            });
-
-            // Close stats modal handlers
+            statsBtn.addEventListener('click', showStats);
             closeStats.addEventListener('click', hideStatsModal);
             statsOk.addEventListener('click', hideStatsModal);
-
-            // Close error modal handlers
             closeError.addEventListener('click', hideErrorModal);
             errorOk.addEventListener('click', hideErrorModal);
-            
-            // Cancel download handler
             cancelDownload.addEventListener('click', function() {
-                if (abortController) {
-                    abortController.abort();
-                    abortController = null;
-                }
+                if (abortController) abortController.abort();
+                abortController = null;
                 downloadModal.classList.add('hidden');
             });
 
-            // Parse GitHub URL
-            function parseGitHubUrl(url) {
-                try {
-                    // Remove protocol if present
-                    url = url.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '');
-                    
-                    const parts = url.split('/');
-                    if (parts.length < 2) {
-                        throw new Error('Invalid GitHub URL. Please provide a valid repository URL.');
-                    }
-                    
-                    const owner = parts[0];
-                    const repo = parts[1];
-                    
-                    // Reset state
-                    currentRepo = { owner, name: repo };
-                    currentPath = [];
-                    
-                    // Determine if URL points to a specific branch, folder or file
-                    if (parts.length > 2) {
-                        if (parts[2] === 'tree' || parts[2] === 'blob') {
-                            // Format: username/repo/tree|blob/branch/[path/to/folder|file]
-                            if (parts.length < 4) {
-                                throw new Error('Invalid GitHub URL. Branch name is missing.');
-                            }
-                            
-                            currentBranch = parts[3];
-                            
-                            // Get path if present
-                            if (parts.length > 4) {
-                                currentPath = parts.slice(4);
-                            }
-                        } else {
-                            // Assume default branch and treat the rest as path
-                            currentBranch = null; // Will fetch default branch
-                            currentPath = parts.slice(2);
-                        }
-                    } else {
-                        // Just username/repo, use default branch
-                        currentBranch = null;
-                    }
-                    
-                    // Start fetching repository content
-                    browseContainer.classList.remove('hidden');
-                    fetchRepositoryContent();
-                    
-                } catch (error) {
-                    showError('URL Parsing Error', error.message);
+            githubSearchBtn.addEventListener('click', () => {
+                const q = githubSearchInput.value.trim();
+                if (q) runGithubSearch(githubSearchType.value, q);
+            });
+
+            githubSearchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    githubSearchBtn.click();
                 }
-            }
+            });
 
-            // Fetch repository content
-            async function fetchRepositoryContent() {
-                showLoadingFiles();
-                hideContentViewer();
-                clearSearch.classList.add('hidden');
-                fileSearch.value = '';
-                updateBreadcrumb();
-                
-                try {
-                    // Fetch repository info to get default branch if needed
-                    if (!currentBranch) {
-                        const repoInfo = await fetchRepoInfo();
-                        currentBranch = repoInfo.default_branch;
-                    }
-                    
-                    // Update repository info display
-                    updateRepoInfo();
-                    
-                    // Fetch contents of current path
-                    const contents = await fetchContents();
-                    
-                    // Add to recent repositories
-                    addToRecentRepos(currentRepo.owner, currentRepo.name, currentBranch, currentPath);
-                    
-                    // Display contents in file explorer
-                    displayContents(contents);
-                    
-                } catch (error) {
-                    console.error('Error fetching repository content:', error);
-                    if (error.name === 'AbortError') {
-                        console.log('Fetch was aborted');
-                    } else if (!navigator.onLine) {
-                        showError('Network Error', 'You appear to be offline. Please check your internet connection and try again.');
-                    } else if (error.message.includes('rate limit')) {
-                        showError('GitHub API Rate Limit Exceeded', 
-                            'You have exceeded GitHub\'s API rate limits. This usually resets after an hour. ' +
-                            'Try again later, or consider using GitHub authentication for higher rate limits.', 
-                            'GitHub API allows 60 unauthenticated requests per hour per IP address.'
-                        );
-                    } else {
-                        showError('Repository Error', 'Failed to fetch repository content. ' + error.message);
-                    }
-                }
-            }
-
-            // Fetch repository info
-            async function fetchRepoInfo() {
-                const url = `https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}`;
-                
-                try {
-                    const controller = new AbortController();
-                    setTimeout(() => controller.abort(), 30000); // 30 second timeout
-                    
-                    const response = await fetch(url, { signal: controller.signal });
-                    
-                    if (!response.ok) {
-                        if (response.status === 404) {
-                            throw new Error('Repository not found. Please check the URL and try again.');
-                        } else if (response.status === 403) {
-                            const rateLimitReset = response.headers.get('X-RateLimit-Reset');
-                            if (rateLimitReset) {
-                                const resetTime = new Date(rateLimitReset * 1000);
-                                const now = new Date();
-                                const minutesUntilReset = Math.ceil((resetTime - now) / 60000);
-                                throw new Error(`API rate limit exceeded. Limit resets in approximately ${minutesUntilReset} minute(s).`);
-                            } else {
-                                throw new Error('API rate limit exceeded. Please try again later.');
-                            }
-                        } else {
-                            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
-                        }
-                    }
-                    
-                    const repoInfo = await response.json();
-                    return repoInfo;
-                    
-                } catch (error) {
-                    console.error('Error fetching repo info:', error);
-                    throw error;
-                }
-            }
-
-            // Fetch contents of current path
-            async function fetchContents() {
-                const path = currentPath.join('/');
-                const url = `https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}/contents/${path}?ref=${currentBranch}`;
-                
-                try {
-                    const controller = new AbortController();
-                    setTimeout(() => controller.abort(), 30000); // 30 second timeout
-                    
-                    const response = await fetch(url, { signal: controller.signal });
-                    
-                    if (!response.ok) {
-                        if (response.status === 404) {
-                            throw new Error('Path not found. The folder or file may not exist in this branch.');
-                        } else if (response.status === 403) {
-                            const rateLimitReset = response.headers.get('X-RateLimit-Reset');
-                            if (rateLimitReset) {
-                                const resetTime = new Date(rateLimitReset * 1000);
-                                const now = new Date();
-                                const minutesUntilReset = Math.ceil((resetTime - now) / 60000);
-                                throw new Error(`API rate limit exceeded. Limit resets in approximately ${minutesUntilReset} minute(s).`);
-                            } else {
-                                throw new Error('API rate limit exceeded. Please try again later.');
-                            }
-                        } else {
-                            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
-                        }
-                    }
-                    
-                    return await response.json();
-                    
-                } catch (error) {
-                    console.error('Error fetching contents:', error);
-                    throw error;
-                }
-            }
-
-            // Fetch repository statistics
-            async function fetchRepoStats() {
-                try {
-                    // Fetch repo info
-                    const repoUrl = `https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}`;
-                    const controller = new AbortController();
-                    setTimeout(() => controller.abort(), 30000); // 30 second timeout
-                    
-                    const repoResponse = await fetch(repoUrl, { signal: controller.signal });
-                    
-                    if (!repoResponse.ok) {
-                        throw new Error(`Failed to fetch repository stats: ${repoResponse.status} ${repoResponse.statusText}`);
-                    }
-                    
-                    const repoData = await repoResponse.json();
-                    
-                    // Fetch languages
-                    const languagesUrl = `https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}/languages`;
-                    const langResponse = await fetch(languagesUrl, { signal: controller.signal });
-                    
-                    if (!langResponse.ok) {
-                        throw new Error(`Failed to fetch language stats: ${langResponse.status} ${langResponse.statusText}`);
-                    }
-                    
-                    const languagesData = await langResponse.json();
-                    
-                    // Combine data
-                    return {
-                        repoInfo: repoData,
-                        languages: languagesData
-                    };
-                    
-                } catch (error) {
-                    console.error('Error fetching repository statistics:', error);
-                    throw error;
-                }
-            }
-
-            // Show repository statistics
-            async function showStats() {
-                statsModal.classList.remove('hidden');
-                statsLoading.classList.remove('hidden');
-                statsContent.classList.add('hidden');
-                
-                try {
-                    repoStats = await fetchRepoStats();
-                    updateStatsUI();
-                    
-                    statsLoading.classList.add('hidden');
-                    statsContent.classList.remove('hidden');
-                    
-                } catch (error) {
-                    hideStatsModal();
-                    
-                    if (error.name === 'AbortError') {
-                        showError('Timeout Error', 'Request timed out. Please try again.');
-                    } else if (!navigator.onLine) {
-                        showError('Network Error', 'You appear to be offline. Please check your internet connection and try again.');
-                    } else if (error.message.includes('rate limit')) {
-                        showError('API Rate Limit', 'GitHub API rate limit exceeded. Please try again later.');
-                    } else {
-                        showError('Statistics Error', 'Failed to load repository statistics: ' + error.message);
-                    }
-                }
-            }
-
-            // Update repository statistics UI
-            function updateStatsUI() {
-                if (!repoStats) return;
-                
-                const { repoInfo, languages } = repoStats;
-                
-                // Update basic info
-                document.getElementById('stats-owner').textContent = repoInfo.owner.login;
-                document.getElementById('stats-name').textContent = repoInfo.name;
-                document.getElementById('stats-created').textContent = formatDate(repoInfo.created_at);
-                document.getElementById('stats-updated').textContent = formatDate(repoInfo.updated_at);
-                document.getElementById('stats-stars').textContent = repoInfo.stargazers_count.toLocaleString();
-                document.getElementById('stats-forks').textContent = repoInfo.forks_count.toLocaleString();
-                document.getElementById('stats-issues').textContent = repoInfo.open_issues_count.toLocaleString();
-                document.getElementById('stats-size').textContent = formatFileSize(repoInfo.size * 1024); // GitHub reports size in KB
-                
-                // Process languages
-                const languageBar = statsModal.querySelector('.language-bar');
-                const languageList = document.getElementById('language-list');
-                
-                languageBar.innerHTML = '';
-                languageList.innerHTML = '';
-                
-                if (Object.keys(languages).length === 0) {
-                    languageBar.innerHTML = '<div class="h-full w-full bg-gray-200 dark:bg-gray-700"></div>';
-                    languageList.innerHTML = '<div class="col-span-2 text-center text-gray-500 dark:text-gray-400">No language data available</div>';
-                    return;
-                }
-                
-                // Calculate total bytes
-                const totalBytes = Object.values(languages).reduce((sum, bytes) => sum + bytes, 0);
-                
-                // Sort languages by usage
-                const sortedLanguages = Object.entries(languages)
-                    .sort((a, b) => b[1] - a[1])
-                    .map(([name, bytes]) => ({
-                        name,
-                        bytes,
-                        percentage: (bytes / totalBytes * 100).toFixed(1)
-                    }));
-                
-                // Create language bar segments
-                sortedLanguages.forEach(lang => {
-                    const segment = document.createElement('div');
-                    segment.className = 'language-segment';
-                    segment.style.width = `${lang.percentage}%`;
-                    
-                    // Get color from language colors or use a default
-                    const color = languageColors[lang.name]?.color || '#cccccc';
-                    segment.style.backgroundColor = color;
-                    
-                    // Add tooltip
-                    segment.setAttribute('data-tooltip', `${lang.name}: ${lang.percentage}%`);
-                    segment.classList.add('tooltip');
-                    
-                    languageBar.appendChild(segment);
-                });
-                
-                // Create language list items
-                sortedLanguages.forEach(lang => {
-                    const item = document.createElement('div');
-                    item.className = 'flex items-center mb-1';
-                    
-                    const color = languageColors[lang.name]?.color || '#cccccc';
-                    
-                    item.innerHTML = `
-                        <span class="w-3 h-3 rounded-full mr-1.5" style="background-color: ${color}"></span>
-                        <span class="mr-1.5">${lang.name}</span>
-                        <span class="text-gray-500 dark:text-gray-400">${lang.percentage}%</span>
-                    `;
-                    
-                    languageList.appendChild(item);
-                });
-            }
-
-            // Hide stats modal
-            function hideStatsModal() {
-                statsModal.classList.add('hidden');
-            }
-
-            // Update repository info display
-            function updateRepoInfo() {
-                repoInfo.textContent = `${currentRepo.owner}/${currentRepo.name} (${currentBranch})`;
-            }
-
-            // Display contents in file explorer
-            function displayContents(contents) {
-                currentFiles = Array.isArray(contents) ? contents : [contents];
-                
-                // If it's a single file, display its content
-                if (!Array.isArray(contents)) {
-                    viewFile(contents);
-                    hideLoadingFiles();
-                    return;
-                }
-                
-                // Sort: directories first, then files, alphabetically
-                currentFiles.sort((a, b) => {
-                    if (a.type !== b.type) {
-                        return a.type === 'dir' ? -1 : 1;
-                    }
-                    return a.name.localeCompare(b.name);
-                });
-                
-                // Clear current list and generate new items
-                fileList.innerHTML = '';
-                
-                // Create list items for each file/directory
-                currentFiles.forEach(item => {
-                    const listItem = document.createElement('div');
-                    listItem.className = 'file-entry p-2 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-750 cursor-pointer flex items-center';
-                    
-                    // Icon based on file type
-                    const icon = getFileIcon(item);
-                    
-                    listItem.innerHTML = `
-                        <div class="file-icon mr-3">${icon}</div>
-                        <div class="flex-grow truncate file-name">${item.name}</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 ml-2">${item.size ? formatFileSize(item.size) : ''}</div>
-                    `;
-                    
-                    // Add click handler
-                    listItem.addEventListener('click', () => {
-                        if (item.type === 'dir') {
-                            navigateToFolder(item.name);
-                        } else {
-                            viewFile(item);
-                        }
-                    });
-                    
-                    fileList.appendChild(listItem);
-                });
-                
-                // Show file list and hide loading
-                fileList.classList.remove('hidden');
-                emptySearchResults.classList.add('hidden');
-                hideLoadingFiles();
-                
-                // Show/hide download and compress buttons
-                updateActionButtons();
-                
-                // Re-apply search filter if there was one
-                if (lastSearchValue) {
-                    filterFiles(lastSearchValue);
-                }
-            }
-
-            // Get appropriate icon for a file or directory
-            function getFileIcon(item) {
-                if (item.type === 'dir') {
-                    return '<i class="fas fa-folder text-yellow-500"></i>';
-                }
-                
-                // Determine icon based on file extension
-                const extension = item.name.split('.').pop().toLowerCase();
-                
-                const iconMap = {
-                    'js': '<i class="fab fa-js-square text-yellow-400"></i>',
-                    'jsx': '<i class="fab fa-react text-blue-400"></i>',
-                    'ts': '<i class="fab fa-js-square text-blue-500"></i>',
-                    'tsx': '<i class="fab fa-react text-blue-500"></i>',
-                    'html': '<i class="fab fa-html5 text-orange-500"></i>',
-                    'css': '<i class="fab fa-css3-alt text-blue-500"></i>',
-                    'scss': '<i class="fab fa-sass text-pink-500"></i>',
-                    'md': '<i class="fas fa-file-alt text-gray-500"></i>',
-                    'json': '<i class="fas fa-code text-gray-500"></i>',
-                    'py': '<i class="fab fa-python text-blue-600"></i>',
-                    'java': '<i class="fab fa-java text-red-600"></i>',
-                    'rb': '<i class="fas fa-gem text-red-500"></i>',
-                    'php': '<i class="fab fa-php text-purple-500"></i>',
-                    'c': '<i class="fas fa-file-code text-blue-400"></i>',
-                    'cpp': '<i class="fas fa-file-code text-blue-500"></i>',
-                    'h': '<i class="fas fa-file-code text-blue-300"></i>',
-                    'go': '<i class="fas fa-file-code text-cyan-500"></i>',
-                    'rs': '<i class="fas fa-file-code text-orange-600"></i>',
-                    'sh': '<i class="fas fa-terminal text-green-500"></i>',
-                    'bat': '<i class="fas fa-terminal text-gray-500"></i>',
-                    'ps1': '<i class="fas fa-terminal text-blue-500"></i>',
-                    'jpg': '<i class="fas fa-file-image text-purple-400"></i>',
-                    'jpeg': '<i class="fas fa-file-image text-purple-400"></i>',
-                    'png': '<i class="fas fa-file-image text-green-400"></i>',
-                    'gif': '<i class="fas fa-file-image text-blue-400"></i>',
-                    'svg': '<i class="fas fa-file-image text-orange-400"></i>',
-                    'pdf': '<i class="fas fa-file-pdf text-red-500"></i>',
-                    'zip': '<i class="fas fa-file-archive text-yellow-600"></i>',
-                    'tar': '<i class="fas fa-file-archive text-brown-500"></i>',
-                    'gz': '<i class="fas fa-file-archive text-red-400"></i>',
-                    'mp3': '<i class="fas fa-file-audio text-blue-400"></i>',
-                    'wav': '<i class="fas fa-file-audio text-purple-400"></i>',
-                    'mp4': '<i class="fas fa-file-video text-red-400"></i>',
-                    'mov': '<i class="fas fa-file-video text-blue-500"></i>',
-                    'txt': '<i class="fas fa-file-alt text-gray-500"></i>',
-                    'log': '<i class="fas fa-file-alt text-gray-400"></i>',
-                    'dockerfile': '<i class="fab fa-docker text-blue-500"></i>',
-                    'yml': '<i class="fas fa-file-code text-indigo-400"></i>',
-                    'yaml': '<i class="fas fa-file-code text-indigo-400"></i>',
-                    'toml': '<i class="fas fa-file-code text-gray-500"></i>',
-                    'lock': '<i class="fas fa-lock text-gray-500"></i>',
-                    'gitignore': '<i class="fab fa-git-alt text-gray-500"></i>',
-                    'env': '<i class="fas fa-cog text-gray-500"></i>'
-                };
-                
-                return iconMap[extension] || '<i class="fas fa-file text-gray-400"></i>';
-            }
-
-            // Navigate to a folder
-            function navigateToFolder(folderName) {
-                currentPath.push(folderName);
-                fetchRepositoryContent();
-            }
-
-            // Navigate using breadcrumb
-            function navigateBreadcrumb(index) {
-                if (index < 0) {
-                    // Repository root
-                    currentPath = [];
-                } else {
-                    // Truncate path at the clicked index
-                    currentPath = currentPath.slice(0, index + 1);
-                }
-                
-                fetchRepositoryContent();
-            }
-
-            // Update breadcrumb navigation
-            function updateBreadcrumb() {
-                breadcrumb.innerHTML = '';
-                
-                // Add repository root
-                const rootItem = document.createElement('span');
-                rootItem.className = 'breadcrumb-item flex items-center';
-                rootItem.innerHTML = '<i class="fas fa-home mr-1"></i> Root';
-                rootItem.addEventListener('click', () => navigateBreadcrumb(-1));
-                breadcrumb.appendChild(rootItem);
-                
-                // Add separator after root
-                if (currentPath.length > 0) {
-                    const separator = document.createElement('span');
-                    separator.className = 'mx-1 text-gray-400';
-                    separator.textContent = '/';
-                    breadcrumb.appendChild(separator);
-                }
-                
-                // Add path segments
-                currentPath.forEach((segment, index) => {
-                    const item = document.createElement('span');
-                    item.className = 'breadcrumb-item';
-                    item.textContent = segment;
-                    item.addEventListener('click', () => navigateBreadcrumb(index));
-                    breadcrumb.appendChild(item);
-                    
-                    // Add separator if not the last item
-                    if (index < currentPath.length - 1) {
-                        const separator = document.createElement('span');
-                        separator.className = 'mx-1 text-gray-400';
-                        separator.textContent = '/';
-                        breadcrumb.appendChild(separator);
-                    }
-                });
-            }
-
-            // View file content
-            async function viewFile(file) {
-                showLoadingContent();
-                
-                try {
-                    let content;
-                    let contentType;
-                    
-                    // Create content container with potential warnings for large files
-                    contentViewer.innerHTML = '';
-                    
-                    // If file is too large (> 1MB), add a warning
-                    if (file.size > 1000000) {
-                        contentViewer.innerHTML = `
-                            <div class="p-4 bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-400 text-yellow-800 dark:text-yellow-200 mb-4">
-                                <p class="font-medium">Warning: Large File</p>
-                                <p class="text-sm">This file is ${(file.size / 1000000).toFixed(2)} MB in size. Displaying it may be slow.</p>
-                            </div>
-                        `;
-                    }
-                    
-                    // For README files, fetch and render markdown
-                    if (file.name.toLowerCase().match(/^readme\.(md|markdown)$/)) {
-                        content = await fetchFileContent(file.download_url);
-                        contentViewer.innerHTML += `<div class="markdown-body">${marked.parse(content)}</div>`;
-                        hideLoadingContent();
-                        return;
-                    }
-                    
-                    const extension = file.name.split('.').pop().toLowerCase();
-                    
-                    // Handle different file types
-                    if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp'].includes(extension)) {
-                        // Image files
-                        contentViewer.innerHTML += `
-                            <div class="flex flex-col items-center justify-center">
-                                <img src="${file.download_url}" alt="${file.name}" class="max-w-full max-h-[80vh] object-contain shadow-lg rounded" />
-                                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">To save this image, right-click on it and select "Save image as..."</p>
-                            </div>
-                        `;
-                    } else if (['mp3', 'ogg', 'wav'].includes(extension)) {
-                        // Audio files
-                        contentViewer.innerHTML += `
-                            <div class="flex flex-col items-center justify-center">
-                                <audio controls class="w-full max-w-lg">
-                                    <source src="${file.download_url}" type="audio/${extension}">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">File: ${file.name} (${(file.size / 1024).toFixed(2)} KB)</p>
-                            </div>
-                        `;
-                    } else if (['mp4', 'webm', 'ogv'].includes(extension)) {
-                        // Video files
-                        contentViewer.innerHTML += `
-                            <div class="flex flex-col items-center justify-center">
-                                <video controls class="max-w-full max-h-[80vh]">
-                                    <source src="${file.download_url}" type="video/${extension}">
-                                    Your browser does not support the video element.
-                                </video>
-                                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">File: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</p>
-                            </div>
-                        `;
-                    } else if (['pdf'].includes(extension)) {
-                        // PDF files - Note: iframe might be blocked by CSP
-                        contentViewer.innerHTML += `
-                            <div class="flex flex-col items-center justify-center">
-                                <p class="mb-4 font-medium">PDF files cannot be displayed directly due to security restrictions.</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">You can access the PDF at: <a href="${file.html_url}" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">GitHub</a></p>
-                            </div>
-                        `;
-                    } else if (file.size > 5000000) {
-                        // Files larger than 5MB
-                        contentViewer.innerHTML += `
-                            <div class="flex flex-col items-center justify-center p-6 text-center">
-                                <i class="fas fa-exclamation-triangle text-yellow-500 text-4xl mb-4"></i>
-                                <h3 class="text-lg font-medium mb-2">File Too Large to Display</h3>
-                                <p class="mb-4">This file is ${(file.size / 1000000).toFixed(2)} MB, which exceeds the recommended size limit for in-browser viewing.</p>
-                                <a href="${file.download_url}" target="_blank" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors" style="background-color: var(--primary-color);">
-                                    View Raw File
-                                </a>
-                            </div>
-                        `;
-                    } else {
-                        // Try to fetch text content
-                        try {
-                            content = await fetchFileContent(file.download_url);
-                            
-                            // Determine if it's binary content by looking for null bytes or non-printable characters
-                            const isBinary = /[\x00-\x08\x0E-\x1F]/.test(content.substring(0, Math.min(1000, content.length)));
-                            
-                            if (isBinary) {
-                                // Show a message for binary files
-                                contentViewer.innerHTML += `
-                                    <div class="flex flex-col items-center justify-center p-6 text-center">
-                                        <i class="fas fa-file-alt text-gray-400 text-4xl mb-4"></i>
-                                        <h3 class="text-lg font-medium mb-2">Binary File</h3>
-                                        <p class="mb-4">This appears to be a binary file and cannot be displayed in the browser.</p>
-                                        <a href="${file.download_url}" target="_blank" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors" style="background-color: var(--primary-color);">
-                                            View Raw File
-                                        </a>
-                                    </div>
-                                `;
-                            } else {
-                                // Determine language for syntax highlighting
-                                let language = '';
-                                switch (extension) {
-                                    case 'js': language = 'javascript'; break;
-                                    case 'jsx': language = 'javascript'; break;
-                                    case 'ts': language = 'typescript'; break;
-                                    case 'tsx': language = 'typescript'; break;
-                                    case 'py': language = 'python'; break;
-                                    case 'java': language = 'java'; break;
-                                    case 'html': language = 'html'; break;
-                                    case 'css': language = 'css'; break;
-                                    case 'json': language = 'json'; break;
-                                    case 'md': language = 'markdown'; break;
-                                    case 'go': language = 'go'; break;
-                                    case 'rs': language = 'rust'; break;
-                                    case 'c': case 'h': language = 'c'; break;
-                                    case 'cpp': case 'hpp': language = 'cpp'; break;
-                                    case 'sh': language = 'bash'; break;
-                                    case 'rb': language = 'ruby'; break;
-                                    case 'php': language = 'php'; break;
-                                    case 'xml': language = 'xml'; break;
-                                    case 'sql': language = 'sql'; break;
-                                    case 'yml': case 'yaml': language = 'yaml'; break;
-                                    default: language = 'plaintext';
-                                }
-                                
-                                // Create container for the code
-                                const codeContainer = document.createElement('pre');
-                                const codeElement = document.createElement('code');
-                                codeElement.className = `language-${language}`;
-                                codeElement.textContent = content;
-                                codeContainer.appendChild(codeElement);
-                                contentViewer.appendChild(codeContainer);
-                                
-                                // Apply syntax highlighting
-                                hljs.highlightElement(codeElement);
-                            }
-                        } catch (error) {
-                            console.error('Error fetching or displaying file:', error);
-                            contentViewer.innerHTML += `
-                                <div class="p-4 bg-red-50 dark:bg-red-900 border-l-4 border-red-500 text-red-800 dark:text-red-200">
-                                    <p class="font-medium">Error loading file</p>
-                                    <p class="text-sm">${error.message}</p>
-                                    <a href="${file.download_url}" target="_blank" class="mt-2 inline-block text-red-600 dark:text-red-300 hover:underline">Try viewing the raw file</a>
-                                </div>
-                            `;
-                        }
-                    }
-                    
-                    // Show download button for individual files
-                    downloadBtn.classList.remove('hidden');
-                    downloadBtn.onclick = () => {
-                        window.open(file.download_url, '_blank');
-                    };
-                    
-                } catch (error) {
-                    console.error('Error viewing file:', error);
-                    contentViewer.innerHTML = `
-                        <div class="p-4 bg-red-50 dark:bg-red-900 border-l-4 border-red-500 text-red-800 dark:text-red-200">
-                            <p class="font-medium">Error loading file</p>
-                            <p class="text-sm">${error.message}</p>
-                        </div>
-                    `;
-                } finally {
-                    hideLoadingContent();
-                }
-            }
-
-            // Fetch file content with timeout and error handling
-            async function fetchFileContent(url) {
-                try {
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
-                    
-                    const response = await fetch(url, { signal: controller.signal });
-                    clearTimeout(timeoutId);
-                    
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch file: ${response.status} ${response.statusText}`);
-                    }
-                    
-                    return await response.text();
-                    
-                } catch (error) {
-                    console.error('Error fetching file content:', error);
-                    if (error.name === 'AbortError') {
-                        throw new Error('Request timed out. The file may be too large to load.');
-                    } else if (!navigator.onLine) {
-                        throw new Error('You appear to be offline. Please check your internet connection and try again.');
-                    } else {
-                        throw error;
-                    }
-                }
-            }
-
-            // Update action buttons based on current context
-            function updateActionButtons() {
-                // Single file view
-                if (currentFiles.length === 1 && currentFiles[0].type === 'file') {
-                    downloadBtn.classList.remove('hidden');
-                    compressBtn.classList.add('hidden');
-                    
-                    downloadBtn.onclick = () => {
-                        window.open(currentFiles[0].download_url, '_blank');
-                    };
-                } 
-                // Folder/repository view
-                else {
-                    downloadBtn.classList.add('hidden');
-                    compressBtn.classList.remove('hidden');
-                    
-                    compressBtn.onclick = () => {
-                        compressAndDownload();
-                    };
-                }
-            }
-
-            // Compress and download repository/folder
-            async function compressAndDownload() {
-                downloadModal.classList.remove('hidden');
-                downloadStatus.textContent = 'Preparing files...';
-                downloadProgress.style.width = '0%';
-                
-                // Create new abort controller for this download operation
-                abortController = new AbortController();
-                const signal = abortController.signal;
-                
-                try {
-                    // Determine folder name for the zip file
-                    let zipName;
-                    if (currentPath.length > 0) {
-                        zipName = currentPath[currentPath.length - 1] + '.zip';
-                    } else {
-                        zipName = `${currentRepo.name}-${currentBranch}.zip`;
-                    }
-                    
-                    // Create new JSZip instance
-                    const zip = new JSZip();
-                    const rootFolder = zip.folder(zipName.replace('.zip', ''));
-                    
-                    // Process all files and folders recursively
-                    await processFolder(rootFolder, currentPath.join('/'), 0, signal);
-                    
-                    // Generate and download zip file
-                    downloadStatus.textContent = 'Generating ZIP file...';
-                    
-                    zip.generateAsync({
-                        type: 'blob',
-                        compression: 'DEFLATE',
-                        compressionOptions: { level: 9 }
-                    }, (metadata) => {
-                        const percent = Math.min(100, Math.round(metadata.percent));
-                        downloadProgress.style.width = `${percent}%`;
-                    }).then(blob => {
-                        // Create download link
-                        const link = document.createElement('a');
-                        link.href = URL.createObjectURL(blob);
-                        link.download = zipName;
-                        
-                        // Simulate click to trigger download
-                        downloadStatus.textContent = 'Download ready!';
-                        link.click();
-                        
-                        // Clean up
-                        setTimeout(() => {
-                            URL.revokeObjectURL(link.href);
-                            downloadModal.classList.add('hidden');
-                        }, 1000);
-                    });
-                    
-                } catch (error) {
-                    if (error.name === 'AbortError') {
-                        console.log('Download was cancelled');
-                    } else {
-                        console.error('Error during compression:', error);
-                        downloadModal.classList.add('hidden');
-                        showError('Compression Error', 'Failed to compress and download files: ' + error.message);
-                    }
-                }
-            }
-
-            // Process folder recursively for compression
-            async function processFolder(zipFolder, path, depth, signal) {
-                if (depth > 10) {
-                    console.warn('Maximum folder depth reached (10), stopping to prevent infinite recursion');
-                    return;
-                }
-                
-                // Check if operation was aborted
-                if (signal.aborted) {
-                    throw new DOMException('Download aborted by user', 'AbortError');
-                }
-                
-                // Fetch folder contents
-                const url = `https://api.github.com/repos/${currentRepo.owner}/${currentRepo.name}/contents/${path}?ref=${currentBranch}`;
-                
-                try {
-                    downloadStatus.textContent = `Scanning ${path || 'repository root'}...`;
-                    
-                    const response = await fetch(url);
-                    
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch folder: ${response.status} ${response.statusText}`);
-                    }
-                    
-                    const contents = await response.json();
-                    
-                    // Process each item in the folder
-                    let processedFiles = 0;
-                    const totalFiles = contents.length;
-                    
-                    for (const item of contents) {
-                        // Check if operation was aborted
-                        if (signal.aborted) {
-                            throw new DOMException('Download aborted by user', 'AbortError');
-                        }
-                        
-                        if (item.type === 'file') {
-                            // Update status
-                            processedFiles++;
-                            downloadStatus.textContent = `Processing file ${processedFiles}/${totalFiles}: ${item.name}`;
-                            downloadProgress.style.width = `${Math.round((processedFiles / totalFiles) * 100)}%`;
-                            
-                            try {
-                                // Skip large files (>50MB) to prevent browser crashes
-                                if (item.size > 50000000) {
-                                    console.warn(`Skipping large file: ${item.name} (${formatFileSize(item.size)})`);
-                                    zipFolder.file(item.name + '.skipped.txt', 
-                                        `This file was too large to include in the ZIP file: ${item.name} (${formatFileSize(item.size)})\n` +
-                                        `You can download it directly from: ${item.html_url}`
-                                    );
-                                    continue;
-                                }
-
-                                // Fetch file content
-                                const fileResponse = await fetch(item.download_url);
-                                
-                                if (!fileResponse.ok) {
-                                    throw new Error(`Failed to fetch file: ${fileResponse.status} ${fileResponse.statusText}`);
-                                }
-                                
-                                const fileBlob = await fileResponse.blob();
-                                
-                                // Add file to zip
-                                zipFolder.file(item.name, fileBlob);
-                            } catch (error) {
-                                console.error(`Error processing file ${item.name}:`, error);
-                                // Add error note instead of file
-                                zipFolder.file(item.name + '.error.txt', 
-                                    `Error fetching this file: ${error.message}\n` +
-                                    `You can download it directly from: ${item.html_url}`
-                                );
-                            }
-                            
-                        } else if (item.type === 'dir') {
-                            // Create subfolder and process recursively
-                            const subFolder = zipFolder.folder(item.name);
-                            const subPath = path ? `${path}/${item.name}` : item.name;
-                            await processFolder(subFolder, subPath, depth + 1, signal);
-                        }
-                    }
-                    
-                } catch (error) {
-                    if (error.name === 'AbortError') {
-                        throw error; // Re-throw abort errors
-                    } else {
-                        console.error(`Error processing folder ${path}:`, error);
-                        throw new Error(`Failed to process folder ${path}: ${error.message}`);
-                    }
-                }
-            }
-
-            // Show error modal
-            function showError(title, message, details = '') {
-                errorMessage.textContent = message;
-                
-                if (details) {
-                    errorDetails.textContent = details;
-                    errorDetails.classList.remove('hidden');
-                } else {
-                    errorDetails.classList.add('hidden');
-                }
-                
-                errorModal.classList.remove('hidden');
-            }
-
-            // Hide error modal
-            function hideErrorModal() {
-                errorModal.classList.add('hidden');
-            }
-
-            // Show loading spinner for files
-            function showLoadingFiles() {
-                loadingFiles.classList.remove('hidden');
-                fileList.classList.add('hidden');
-                emptySearchResults.classList.add('hidden');
-            }
-
-            // Hide loading spinner for files
-            function hideLoadingFiles() {
-                loadingFiles.classList.add('hidden');
-                fileList.classList.remove('hidden');
-            }
-
-            // Show loading overlay for content
-            function showLoadingContent() {
-                loadingContent.classList.remove('hidden');
-            }
-
-            // Hide loading overlay for content
-            function hideLoadingContent() {
-                loadingContent.classList.add('hidden');
-            }
-
-            // Hide content viewer (when browsing folders)
-            function hideContentViewer() {
-                contentViewer.innerHTML = `
-                    <div class="flex items-center justify-center h-full text-gray-400">
-                        <div class="text-center">
-                            <i class="fas fa-folder-open text-4xl mb-3"></i>
-                            <p>Select a file to view its contents</p>
-                        </div>
-                    </div>
-                `;
-            }
-
-            // Initialize app
             loadRecentRepos();
         });
     </script>
