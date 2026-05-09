@@ -2,6 +2,8 @@
 
 A lightweight, zero-cost GitHub repository browser that runs entirely in your browser — no API key required, no backend needed.
 
+**[→ Live Demo](https://nuhbodyok.github.io/repo-browser/)**
+
 ![Dark Theme](https://img.shields.io/badge/theme-dark%20slate-818cf8)
 ![No API Key](https://img.shields.io/badge/API-none%20needed-22c55e)
 ![GitHub Pages](https://img.shields.io/badge/host-GitHub%20Pages-blue)
